@@ -1,0 +1,45 @@
+body {
+  padding: 10px;
+  height: 100vh;
+  font-size: 15px;
+  -webkit-app-region: drag;
+}
+
+* {
+  font-weight: 400 !important;
+}
+
+*:active, *:focus {
+  outline: none !important;
+}
+
+body > button.close {
+  margin-right: 5px;
+}
+
+body > .container {
+  margin-top: 30px;
+}
+
+p.lead {
+  font-size: 18px;
+}
+
+a, button {
+  -webkit-app-region: no-drag;
+}
+
+section.main button {
+  margin-top: 30px;
+}
+
+footer {
+  bottom: 15px;
+  position: absolute;
+  width: calc(100% - 80px);
+}
+
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
