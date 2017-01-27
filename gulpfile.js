@@ -1,39 +1,40 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 const gulp = require('gulp');
-const connect = require('electron-connect');
 const jetpack = require('fs-jetpack');
 const usemin = require('gulp-usemin');
 const uglify = require('gulp-uglify');
+const connect = require('electron-connect');
 
-const projectDir = jetpack;
-const destDir = projectDir.cwd('./build');
-
-const electron = connect.server.create({
-	stopOnClose: true,
-	spawnOpt: {
-		env: {
-			NODE_ENV: 'development'
-		}
-	}
-});
-
-const callback = (electronProcState) => {
-	console.log('Electron process state: ' + electronProcState);
-
-	if (electronProcState === 'stopped') {
-		process.exit(callback);
-	}
+const dir = {
+  build: jetpack.cwd('./build'),
+  module: jetpack.cwd('./node_modules')
 };
 
+const electron = connect.server.create({
+  stopOnClose: true,
+  spawnOpt: {
+    env: {
+      NODE_ENV: 'development'
+    }
+  }
+});
+
+function cbProcess(electronProcState) {
+  console.log('Electron process state: ' + electronProcState);
+
+  if (electronProcState === 'stopped') {
+    process.exit(cbProcess);
+  }
+}
+
 gulp.task('clean', () => {
-  return destDir.dirAsync('.', {empty: true});
+  return dir.build.dirAsync('.', {empty: true});
 });
 
 gulp.task('copy', ['clean'], () => {
-  return projectDir.copyAsync('./', destDir.path(), {
+  return jetpack.copyAsync('.', dir.build.path(), {
     overwrite: true,
     matching: [
       './main.js',
@@ -45,37 +46,38 @@ gulp.task('copy', ['clean'], () => {
   });
 });
 
-gulp.task('symlink', ['copy'], (cb) => {
-  return fs.symlink(path.resolve('./node_modules'), './build/node_modules', 'dir', cb);
+gulp.task('symlink', ['copy'], (done) => {
+  return fs.symlinkSync(
+    dir.module.path(),
+    './build/node_modules', 'dir', done
+  );
 });
 
 gulp.task('build', ['symlink'], () => {
   return gulp.src('./app/index.html')
-    .pipe(usemin({
-      js: [uglify()]
-    }))
-    .pipe(gulp.dest('build/app/'));
+    .pipe(usemin({js: [uglify()]}))
+    .pipe(gulp.dest('./build/app'));
 });
 
 gulp.task('serve', () => {
-	electron.start(callback);
+  electron.start(cbProcess);
 
-	gulp.watch(['app.js', './app/**/*.js'], ['restart:browser']);
-	gulp.watch(['./app/**/*.html', './app/**/*.css'], ['reload:renderer']);
+  gulp.watch(['app.js', './app/**/*.js'], ['restart:browser']);
+  gulp.watch(['./app/**/*.html', './app/**/*.css'], ['reload:renderer']);
 });
 
-gulp.task('restart:browser', done => {
-	electron.restart(callback);
-	done();
+gulp.task('restart:browser', (done) => {
+  electron.restart(cbProcess);
+  done();
 });
 
-gulp.task('reload:renderer', done => {
-	electron.reload(callback);
+gulp.task('reload:renderer', (done) => {
+  electron.reload(cbProcess);
 
-	setTimeout(function () {
-		electron.broadcast('Sayfa güncellendi.');
-		done();
-	});
+  setTimeout(function () {
+    electron.broadcast('Rendered.');
+    done();
+  });
 });
 
 gulp.task('default', ['serve']);
