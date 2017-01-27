@@ -26,6 +26,9 @@
     "electron"
   ],
   "dependencies": {
+    "angular": "^1.6.1",
+    "angular-ui-bootstrap": "^2.4.0",
+    "angular-ui-router": "^0.4.2",
     "lodash": "^4.17.4"
   },
   "devDependencies": {

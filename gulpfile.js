@@ -59,9 +59,10 @@ gulp.task('symlink', ['copy'], (done) => {
 gulp.task('build', ['symlink'], () => {
   return gulp.src('./app/index.html')
     .pipe(usemin({
-      js: [uglify()],
       css: [cleanCSS()],
-      html: [ htmlmin({collapseWhitespace: true})]
+      app: [uglify()],
+      vendor: [uglify()],
+      html: [htmlmin({collapseWhitespace: true})]
     }))
     .pipe(gulp.dest('./build/app'));
 });
@@ -81,7 +82,7 @@ gulp.task('restart:browser', (done) => {
 gulp.task('reload:renderer', (done) => {
   electron.reload(cbProcess);
 
-  setTimeout(function () {
+  setTimeout(() => {
     electron.broadcast('Rendered.');
     done();
   });
