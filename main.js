@@ -1,12 +1,9 @@
 'use strict';
 
 const electron = require('electron');
-const client = require('electron-connect').client;
 
 const app = electron.app;
 const ipcMain = electron.ipcMain;
-
-require('electron-debug')();
 
 let mainWindow;
 
@@ -51,7 +48,8 @@ app.on('ready', () => {
 	mainWindow = createMainWindow();
 
 	if (process.env.NODE_ENV === 'development') {
-		client.create(mainWindow);
+    require('electron-connect').client.create(mainWindow);
+    require('electron-debug')();
 	}
 });
 
