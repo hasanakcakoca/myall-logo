@@ -1,5 +1,6 @@
-const _process = process;
+process.once('loaded', () => {
+  const electron = require('electron');
 
-process.once('loaded', function() {
-  global.process = _process;
+  global.process = process;
+  global.ipcRenderer = electron.ipcRenderer;
 });

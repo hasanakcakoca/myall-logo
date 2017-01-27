@@ -1,12 +1,15 @@
 'use strict';
 
-const path = require('path');
 const electron = require('electron');
 
 const app = electron.app;
 const ipcMain = electron.ipcMain;
 
+const env = process.env.NODE_ENV;
+
 let mainWindow;
+
+require('electron-debug')();
 
 function onClosed() {
 	mainWindow = null;
@@ -14,14 +17,13 @@ function onClosed() {
 
 function createMainWindow() {
 	const options = {
-		width: 800,
-    height: 600,
+		width: 850,
+    height: 650,
     frame: false,
-    resizable:  false,
-		minimizable: false,
-		maximizable: false,
+    transparent: true,
     webPreferences: {
-      preload: path.join(__dirname, 'scripts/preload.js')
+      devTools: env === 'development',
+      preload: `${__dirname}/app/scripts/preload.js`
     }
 	};
 
@@ -49,12 +51,11 @@ app.on('activate', () => {
 app.on('ready', () => {
 	mainWindow = createMainWindow();
 
-	if (process.env.NODE_ENV === 'development') {
+	if (env === 'development') {
     require('electron-connect').client.create(mainWindow);
-    require('electron-debug')();
 	}
 });
 
-ipcMain.on('close-main-window', () => {
-	mainWindow.close();
+ipcMain.on('close', () => {
+  mainWindow.close();
 });

@@ -5,6 +5,8 @@ const gulp = require('gulp');
 const jetpack = require('fs-jetpack');
 const usemin = require('gulp-usemin');
 const uglify = require('gulp-uglify');
+const htmlmin = require('gulp-htmlmin');
+const cleanCSS = require('gulp-clean-css');
 const connect = require('electron-connect');
 
 const dir = {
@@ -56,7 +58,11 @@ gulp.task('symlink', ['copy'], (done) => {
 
 gulp.task('build', ['symlink'], () => {
   return gulp.src('./app/index.html')
-    .pipe(usemin({js: [uglify()]}))
+    .pipe(usemin({
+      js: [uglify()],
+      css: [cleanCSS()],
+      html: [ htmlmin({collapseWhitespace: true})]
+    }))
     .pipe(gulp.dest('./build/app'));
 });
 
