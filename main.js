@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const electron = require('electron');
 
 const app = electron.app;
@@ -14,13 +15,14 @@ function onClosed() {
 function createMainWindow() {
 	const options = {
 		width: 800,
-		height: 600,
-		resizable:  false,
+    height: 600,
+    frame: false,
+    resizable:  false,
 		minimizable: false,
 		maximizable: false,
-		frame: false,
-		title: 'i-Mutabakat Resmi Logo Aktarım Aracı',
-		icon: './app/img/logo-96.png'
+    webPreferences: {
+      preload: path.join(__dirname, 'scripts/preload.js')
+    }
 	};
 
 	const win = new electron.BrowserWindow(options);
@@ -54,5 +56,5 @@ app.on('ready', () => {
 });
 
 ipcMain.on('close-main-window', () => {
-	mainWindow.close()
+	mainWindow.close();
 });

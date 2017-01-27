@@ -21,10 +21,10 @@ const electron = connect.server.create({
   }
 });
 
-function cbProcess(electronProcState) {
-  console.log('Electron process state: ' + electronProcState);
+function cbProcess(processState) {
+  console.log(`Electron process state: ${processState}`);
 
-  if (electronProcState === 'stopped') {
+  if (processState === 'stopped') {
     process.exit(cbProcess);
   }
 }
@@ -39,15 +39,16 @@ gulp.task('copy', ['clean'], () => {
     matching: [
       './main.js',
       './package.json',
+      './app/**/*.html',
       './app/assets/fonts/*',
       './app/assets/images/*',
-      './app/**/*.html'
+      './app/scripts/preload.js'
     ]
   });
 });
 
 gulp.task('symlink', ['copy'], (done) => {
-  return fs.symlinkSync(
+  return fs.symlink(
     dir.module.path(),
     './build/node_modules', 'dir', done
   );
@@ -62,7 +63,7 @@ gulp.task('build', ['symlink'], () => {
 gulp.task('serve', () => {
   electron.start(cbProcess);
 
-  gulp.watch(['app.js', './app/**/*.js'], ['restart:browser']);
+  gulp.watch(['main.js', './app/**/*.js'], ['restart:browser']);
   gulp.watch(['./app/**/*.html', './app/**/*.css'], ['reload:renderer']);
 });
 
