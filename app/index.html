@@ -1,14 +1,15 @@
 <!doctype html>
-<html ng-cloak>
+<html>
 <head>
   <meta charset="utf-8">
   <title>i-Mutabakat Resmi Logo Aktarım Aracı</title>
   <!-- build:css assets/css/app.css -->
-  <link rel="stylesheet" href="assets/styles/normalize.css">
+  <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="../bower_components/animate.css/animate.css">
+  <link rel="stylesheet" href="../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
   <link rel="stylesheet" href="assets/styles/bootstrap.css">
-  <link rel="stylesheet" href="assets/styles/font-awesome.css">
-  <link rel="stylesheet" href="assets/styles/animate.css">
-  <link rel="stylesheet" href="assets/styles/style.css">
+  <link rel="stylesheet" href="assets/styles/app.css">
   <!-- endbuild -->
 </head>
 <body>
@@ -16,14 +17,21 @@
     <button type="button" class="close" ng-click="close()">&times;</button>
     <div class="container" ui-view="">
     </div>
+    <footer>
+      <hr class="animated fadeIn delayed">
+      <p class="animated fadeInLeft delayed">
+        Logo bağlantı bilgilerinizi değiştirmek için
+        <a href="https://www.i-mutabakat.com" class="settings" target="_blank">buraya</a> tıklayın.
+      </p>
+    </footer>
   </main>
   <!-- build:vendor scripts/vendor.js -->
-  <script src="scripts/vendor/angular.js"></script>
-  <script src="scripts/vendor/angular-ui-router.js"></script>
-  <script src="scripts/vendor/ui-bootstrap-tpls.js"></script>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <!-- endbuild -->
   <!-- build:app scripts/app.js -->
-  <script src="scripts/app/index.js"></script>
+  <script src="scripts/app.js"></script>
   <!-- endbuild -->
 </body>
 </html>

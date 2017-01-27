@@ -6,7 +6,7 @@ const app = electron.app;
 const ipcMain = electron.ipcMain;
 
 const env = process.env.NODE_ENV;
-const appDir = `${__dirname}/app/`;
+const appDir = `${__dirname}/app`;
 
 let mainWindow;
 

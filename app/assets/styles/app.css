@@ -27,12 +27,16 @@ main > button.close {
   margin-right: 5px;
 }
 
-main > .container {
+main > .container[ui-view] {
   margin-top: 30px;
 }
 
-main .animated .delayed {
-  animation-delay: .2s;
+main .animated.delayed {
+  animation-delay: .4s;
+}
+
+main .animated.delayed-2x {
+  animation-delay: .8s;
 }
 
 p.lead {
@@ -44,11 +48,8 @@ a, button {
   -webkit-app-region: no-drag;
 }
 
-section.main button {
-  margin-top: 30px;
-}
-
 footer {
+  left: 40px;
   bottom: 15px;
   position: absolute;
   width: calc(100% - 80px);
@@ -57,4 +58,8 @@ footer {
 .titlebar {
   -webkit-user-select: none;
   -webkit-app-region: drag;
+}
+
+section.main button {
+  margin-top: 30px;
 }

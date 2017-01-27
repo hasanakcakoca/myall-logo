@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+  const app = angular.module('app', ['ui.bootstrap', 'ui.router']);
 
   app.config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state({
