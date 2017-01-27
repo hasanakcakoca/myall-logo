@@ -1,0 +1,28 @@
+{
+  "name": "im-logo",
+  "description": "i-Mutabakat Resmi Logo Aktarım Aracı",
+  "main": "./main.js",
+  "authors": [
+    "Kemal Ersin Yılmaz"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "electron-app",
+    "electron"
+  ],
+  "homepage": "https://www.i-mutabakat.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "^0.4.2",
+    "animate.css": "^3.5.2",
+    "angular-bootstrap": "^2.4.0",
+    "normalize-css": "normalize.css#^5.0.0",
+    "font-awesome": "FortAwesome/Font-Awesome#^4.7.0"
+  }
+}
