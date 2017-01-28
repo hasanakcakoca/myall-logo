@@ -4,7 +4,7 @@
   function appConfig($stateProvider) {
     $stateProvider.state({
       name: 'main',
-      url: '/',
+      url: '',
       controller: 'MainController',
       controllerAs: 'vm',
       templateUrl: './templates/main.html'
