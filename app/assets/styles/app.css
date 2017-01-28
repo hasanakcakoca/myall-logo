@@ -4,6 +4,9 @@ html, body {
 
 body {
   font-size: 15px;
+}
+
+.draggable {
   -webkit-app-region: drag;
 }
 
@@ -58,11 +61,6 @@ footer {
   width: calc(100% - 80px);
 }
 
-.titlebar {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-}
-
 section.main button {
   margin-top: 30px;
 }
@@ -96,6 +94,14 @@ section.main button {
   transform: scale(1);
 }
 
+.modal.login .modal-dialog {
+  width: 450px;
+}
+
+.modal-body {
+  padding: 50px 60px 50px;
+}
+
 .modal-content {
   border-radius: 8px;
   box-shadow: 0 8px 30px -2px rgba(0, 0, 0, .3);
@@ -107,14 +113,6 @@ section.main button {
   bottom: 30px;
   left: 20px;
   border-radius: 6px;
-}
-
-.modal.login .modal-body {
-  padding: 50px 60px 50px;
-}
-
-.modal.login .modal-dialog {
-  width: 450px;
 }
 
 .form .btn-toolbar {

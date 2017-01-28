@@ -1,7 +1,7 @@
 (function () {
   const app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngAnimate']);
 
-  app.config(['$stateProvider', function ($stateProvider) {
+  function appConfig($stateProvider) {
     $stateProvider.state({
       name: 'main',
       url: '/',
@@ -9,13 +9,21 @@
       controllerAs: 'vm',
       templateUrl: './templates/main.html'
     });
-  }]);
+  }
 
-  app.run(['$rootScope', function ($rootScope) {
+  function appRun($rootScope, ConnectionService) {
     $rootScope.close = function () {
       ipcRenderer.send("close");
     };
-  }]);
+
+    $rootScope.showConnectionSettings = function () {
+      ConnectionService.settings.show();
+    }
+  }
+
+  app
+    .config(['$stateProvider', appConfig])
+    .run(['$rootScope', 'ConnectionService', appRun]);
 
   angular.element(document)
     .ready(function () {

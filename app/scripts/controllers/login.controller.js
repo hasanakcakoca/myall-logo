@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('app')
-    .controller('LoginController', ['$uibModalInstance', LoginController]);
+    .controller('LoginController', LoginController);
 
-  function LoginController($uibModalInstance) {
+  function LoginController() {
   }
 })();
