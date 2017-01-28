@@ -35,31 +35,33 @@ gulp.task('clean', () => {
   return dir.build.dirAsync('.', {empty: true});
 });
 
-gulp.task('copy', () => {
+gulp.task('copy', ['clean'], () => {
   return jetpack.copyAsync('.', dir.build.path(), {
     overwrite: true,
     matching: [
       './main.js',
       './package.json',
-      './app/**/*.html',
+      './app/index.html',
       './app/assets/images/*',
       './app/scripts/preload.js',
     ]
   });
 });
 
-gulp.task('symlink', (done) => {
+gulp.task('symlink', ['copy'], (done) => {
   return fs.symlink(
     dir.module.path(),
     './build/node_modules', 'dir', done
   );
 });
 
-gulp.task('build', [
-  'clean',
-  'copy',
-  'symlink'
-], () => {
+gulp.task('build:templates', ['symlink'], () => {
+  return gulp.src('./app/templates/*')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('./build/app/templates'));
+});
+
+gulp.task('build', ['build:templates'], () => {
   return gulp.src('./app/index.html')
     .pipe(usemin({
       'app': [uglify()],
