@@ -20,12 +20,12 @@ function createMainWindow() {
 	const options = {
 		width: 850,
     height: 650,
-    show: false,
+    //show: false,
     frame: false,
     transparent: true,
-    alwaysOnTop: true,
+    //alwaysOnTop: true,
     webPreferences: {
-      devTools: env === 'development',
+      //devTools: env === 'development',
       preload: `${appDir}/scripts/preload.js`
     }
 	};
@@ -54,7 +54,7 @@ app.on('activate', () => {
 app.on('ready', () => {
 	mainWindow = createMainWindow();
 
-	mainWindow.show();
+	//mainWindow.show();
 
 	if (env === 'development') {
     require('electron-connect').client.create(mainWindow);

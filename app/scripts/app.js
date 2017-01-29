@@ -1,7 +1,7 @@
 (function () {
   const app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngAnimate']);
 
-  function appConfig($stateProvider) {
+  function appConfig($stateProvider, $qProvider) {
     $stateProvider.state({
       name: 'main',
       url: '',
@@ -9,6 +9,8 @@
       controllerAs: 'vm',
       templateUrl: './templates/main.html'
     });
+
+    $qProvider.errorOnUnhandledRejections(false);
   }
 
   function appRun($rootScope, ConnectionService) {
@@ -22,7 +24,7 @@
   }
 
   app
-    .config(['$stateProvider', appConfig])
+    .config(['$stateProvider', '$qProvider', appConfig])
     .run(['$rootScope', 'ConnectionService', appRun]);
 
   angular.element(document)

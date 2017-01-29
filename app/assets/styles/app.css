@@ -37,11 +37,16 @@ main > .container[ui-view] {
   margin-top: 30px;
 }
 
-main .animated.delayed {
+.animated {
+  -webkit-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+}
+
+.animated.delayed {
   animation-delay: .4s;
 }
 
-main .animated.delayed-2x {
+.animated.delayed-2x {
   animation-delay: .8s;
 }
 
