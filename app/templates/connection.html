@@ -1,33 +1,34 @@
 <div class="modal-body">
-  <form class="form" name="connectionForm">
+  <div class="modal-spinner" ng-class="{'hidden': !wait}"></div>
+  <form class="form" name="form" ng-submit="save(form)" novalidate>
     <div class="row">
       <div class="col-sm-6">
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': form.$submitted && form.server.$invalid}">
           <label>Sunucu</label>
-          <input type="text" name="server" class="form-control" required="required" autofocus="autofocus"/>
+          <input type="text" name="server" class="form-control" required="required" autofocus="autofocus" ng-model="server"/>
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': form.$submitted && form.database.$invalid}">
           <label>Veritabanı</label>
-          <input type="text" name="database" class="form-control" required="required"/>
+          <input type="text" name="database" class="form-control" required="required" ng-model="database"/>
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': form.$submitted && form.user.$invalid}">
           <label>Kullanıcı Adı</label>
-          <input type="text" name="username" class="form-control" required="required"/>
+          <input type="text" name="user" class="form-control" required="required" ng-model="user"/>
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': form.$submitted && form.password.$invalid}">
           <label>Parola</label>
-          <input type="password" name="password" class="form-control" required="required"/>
+          <input type="password" name="password" class="form-control" required="required" ng-model="password"/>
         </div>
       </div>
     </div>
     <div class="btn-toolbar">
-      <button type="submit" class="btn btn-primary btn-lg">Kaydet</button>
+      <button type="submit" class="btn btn-primary btn-lg" ng-disabled="wait">Kaydet</button>
       <button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Vazgeç</button>
     </div>
   </form>

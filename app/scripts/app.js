@@ -1,7 +1,12 @@
 (function () {
-  const app = angular.module('app', ['ui.bootstrap', 'ui.router', 'ngAnimate']);
+  const app = angular.module('app', [
+    'ui.bootstrap',
+    'ui.router',
+    'ngAnimate',
+    'ui-notification'
+  ]);
 
-  function appConfig($stateProvider, $qProvider) {
+  function appConfig($stateProvider, $qProvider, NotificationProvider) {
     $stateProvider.state({
       name: 'main',
       url: '/',
@@ -11,6 +16,12 @@
     });
 
     $qProvider.errorOnUnhandledRejections(false);
+
+    NotificationProvider.setOptions({
+      delay: 2000,
+      positionX: 'center',
+      closeOnClick: false
+    });
   }
 
   function appRun($rootScope, ConnectionService) {
@@ -24,8 +35,17 @@
   }
 
   app
-    .config(['$stateProvider', '$qProvider', appConfig])
-    .run(['$rootScope', 'ConnectionService', appRun]);
+    .config([
+      '$stateProvider',
+      '$qProvider',
+      'NotificationProvider',
+      appConfig
+    ])
+    .run([
+      '$rootScope',
+      'ConnectionService',
+      appRun
+    ]);
 
   angular.element(document)
     .ready(function () {
