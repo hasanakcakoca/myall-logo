@@ -6,46 +6,35 @@
     'ui-notification'
   ]);
 
-  function appConfig($stateProvider, $qProvider, NotificationProvider) {
-    $stateProvider.state({
-      name: 'main',
-      url: '',
-      controller: 'MainController',
-      controllerAs: 'vm',
-      templateUrl: './templates/main.html'
-    });
-
-    $qProvider.errorOnUnhandledRejections(false);
-
-    NotificationProvider.setOptions({
-      delay: 2000,
-      positionX: 'center',
-      closeOnClick: false
-    });
-  }
-
   function appRun($rootScope, ConnectionService) {
     $rootScope.close = function () {
-      ipcRenderer.send("close");
+      ipcRenderer.send('close');
     };
 
-    $rootScope.showConnectionSettings = function () {
-      ConnectionService.settings.show();
-    }
+    $rootScope.connect = function (cb) {
+      cb = cb || angular.noop;
+
+      ConnectionService.connect().then(connection => {
+        if ($rootScope.connection) {
+          $rootScope.connection.close();
+        }
+
+        cb($rootScope.connection = connection);
+      });
+    };
+
+    $rootScope.showConnectionSettings = function (cb) {
+      ConnectionService.settings.show()
+        .then(modalInstance =>
+          modalInstance.result
+            .then(() => $rootScope.connect(cb))
+        );
+    };
+
+    $rootScope.connect();
   }
 
-  app
-    .config([
-      '$stateProvider',
-      '$qProvider',
-      'NotificationProvider',
-      appConfig
-    ])
-    .run([
-      '$rootScope',
-      'ConnectionService',
-      appRun
-    ]);
+  app.run(['$rootScope', 'ConnectionService', appRun]);
 
   angular.element(document)
     .ready(function () {

@@ -11,6 +11,7 @@ const appDir = `${__dirname}/app`;
 let mainWindow;
 
 require('electron-debug')();
+require('dotenv').config();
 
 function onClosed() {
 	mainWindow = null;

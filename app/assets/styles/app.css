@@ -29,6 +29,10 @@ button.close {
   font-size: 28px;
 }
 
+a.settings {
+  cursor: pointer;
+}
+
 main > button.close {
   margin-right: 5px;
 }
