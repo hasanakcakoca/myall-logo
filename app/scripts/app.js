@@ -9,7 +9,7 @@
   function appConfig($stateProvider, $qProvider, NotificationProvider) {
     $stateProvider.state({
       name: 'main',
-      url: '/',
+      url: '',
       controller: 'MainController',
       controllerAs: 'vm',
       templateUrl: './templates/main.html'
