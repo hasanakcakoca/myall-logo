@@ -8,12 +8,30 @@
 
   function appRun($rootScope, ConnectionService) {
     $rootScope.close = function () {
-      ipcRenderer.send("close");
+      ipcRenderer.send('close');
     };
 
-    $rootScope.showConnectionSettings = function () {
-      ConnectionService.settings.show();
-    }
+    $rootScope.connect = function (cb) {
+      cb = cb || angular.noop;
+
+      ConnectionService.connect().then(connection => {
+        if ($rootScope.connection) {
+          $rootScope.connection.close();
+        }
+
+        cb($rootScope.connection = connection);
+      });
+    };
+
+    $rootScope.showConnectionSettings = function (cb) {
+      ConnectionService.settings.show()
+        .then(modalInstance =>
+          modalInstance.result
+            .then(() => $rootScope.connect(cb))
+        );
+    };
+
+    $rootScope.connect();
   }
 
   app.run(['$rootScope', 'ConnectionService', appRun]);

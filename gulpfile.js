@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const gulp = require('gulp');
+const babel  = require('gulp-babel');
 const jetpack = require('fs-jetpack');
 const usemin = require('gulp-usemin');
 const uglify = require('gulp-uglify');
@@ -64,7 +65,7 @@ gulp.task('build:templates', ['symlink'], () => {
 gulp.task('build', ['build:templates'], () => {
   return gulp.src('./app/index.html')
     .pipe(usemin({
-      'app': [uglify()],
+      'app': [babel({presets: ['es2015']}), uglify()],
       'vendor': [uglify()],
       'css': [cleanCSS()],
       'html': [htmlmin({collapseWhitespace: true})]

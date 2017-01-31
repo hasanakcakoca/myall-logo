@@ -8,8 +8,8 @@
       closeOnClick: false
     });
 
-    $urlRouterProvider.when('', '/main');
-    $urlRouterProvider.otherwise('/main');
+    $urlRouterProvider.when('', '/');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider.state({
       name: 'main',
@@ -18,7 +18,7 @@
       templateUrl: './templates/main.html'
     }).state({
       name: 'transactions',
-      url: 'cariler',
+      url: '/cariler',
       controller: 'TransactionsController',
       templateUrl: './templates/transactions.html'
     });

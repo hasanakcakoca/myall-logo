@@ -1,41 +1,6 @@
 (function () {
   'use strict';
 
-  function ConnectionController($scope,
-                                $timeout,
-                                $uibModalInstance,
-                                Notification,
-                                ConnectionService) {
-    $scope.save = function (form) {
-      if (!form.$valid) return;
-
-      const cs = ConnectionService;
-
-      const config = _.pick($scope, [
-        'server',
-        'database',
-        'user',
-        'password'
-      ]);
-
-      $scope.wait = true;
-
-      $timeout(() =>
-        cs.test(config)
-          .then(() => {
-            cs.settings.write(config);
-            $uibModalInstance.dismiss('ok');
-          })
-          .catch(err =>
-            $scope.$applyAsync(() => {
-              $scope.wait = false;
-              Notification.error('Veritabanına bağlanılamadı.');
-            })
-          )
-      );
-    }
-  }
-
   function ConnectionService($rootScope, $uibModal) {
     return {
       test: function (config) {
@@ -46,8 +11,8 @@
         );
       },
       connect: function () {
-        return this.read().then(config =>
-          new sql.Connection(config)
+        return this.settings.read().then(config =>
+          config ? new sql.Connection(config) : null
         );
       },
       settings: {
@@ -57,7 +22,7 @@
 
             angular.extend(modalScope, config);
 
-            $uibModal.open({
+            return $uibModal.open({
               scope: modalScope,
               backdrop: 'static',
               windowClass: 'modal-default',
@@ -74,7 +39,7 @@
           return storage.setAsync('connection', encryptor.encrypt(config));
         }
       }
-    }
+    };
   }
 
   angular.module('app')
@@ -82,13 +47,5 @@
       '$rootScope',
       '$uibModal',
       ConnectionService
-    ])
-    .controller('ConnectionController', [
-      '$scope',
-      '$timeout',
-      '$uibModalInstance',
-      'Notification',
-      'ConnectionService',
-      ConnectionController
     ]);
 })();
