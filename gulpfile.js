@@ -40,6 +40,7 @@ gulp.task('copy', ['clean'], () => {
   return jetpack.copyAsync('.', dir.build.path(), {
     overwrite: true,
     matching: [
+      './.env',
       './main.js',
       './package.json',
       './app/index.html',

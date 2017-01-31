@@ -11,9 +11,7 @@
       ipcRenderer.send('close');
     };
 
-    $rootScope.connect = function (cb) {
-      cb = cb || angular.noop;
-
+    $rootScope.connect = function (cb = angular.noop) {
       ConnectionService.connect().then(connection => {
         if ($rootScope.connection) {
           $rootScope.connection.close();
