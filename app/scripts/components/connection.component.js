@@ -1,13 +1,11 @@
 (function () {
   'use strict';
 
-  function ConnectionController(
-    $scope,
-    $timeout,
-    $uibModalInstance,
-    Notification,
-    ConnectionService
-  ) {
+  function ConnectionController($scope,
+                                $timeout,
+                                $uibModalInstance,
+                                Notification,
+                                ConnectionService) {
     $scope.save = function (form) {
       if (!form.$valid) return;
 
@@ -24,16 +22,18 @@
 
       $timeout(() =>
         cs.test(config)
-        .then(() => {
-          cs.settings.write(config);
-          $uibModalInstance.dismiss('ok');
-        })
-        .catch(err => {
-          $scope.$applyAsync(() => {
-            $scope.wait = false;
-            Notification.error('Veritabanına bağlanılamadı.');
-          });
-        })
+          .then(() => {
+            cs.settings.write(config);
+            $uibModalInstance.dismiss('ok');
+          })
+          .catch(err => {
+            console.log(err);
+
+            $scope.$applyAsync(() => {
+              $scope.wait = false;
+              Notification.error('Veritabanına bağlanılamadı.');
+            });
+          })
       );
     }
   }
@@ -69,10 +69,11 @@
           });
         },
         read: function () {
-          return storage.getAsync('connection');
+          return storage.getAsync('connection')
+            .then(config => encryptor.decrypt(config));
         },
         write: function (config) {
-          return storage.setAsync('connection', config);
+          return storage.setAsync('connection', encryptor.encrypt(config));
         }
       }
     }
