@@ -1,19 +1,20 @@
 <div class="modal-body">
-  <form class="form" name="loginForm">
+  <div class="modal-spinner" ng-class="{'hidden': !wait}"></div>
+  <form class="form" name="form" ng-submit="login(form)" novalidate>
     <div class="row">
       <div class="col-sm-12">
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': form.$submitted && form.email.$invalid}">
           <label>E-posta</label>
-          <input type="email" name="email" class="form-control" required="required" autofocus="autofocus"/>
+          <input type="email" name="email" class="form-control" ng-model="email" required="required" ng-focus="!focusPassword"/>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': form.$submitted && form.password.$invalid}">
           <label>Parola</label>
-          <input type="password" name="password" class="form-control" required="required"/>
+          <input type="password" name="password" class="form-control" ng-model="password" required="required" ng-focus="focusPassword"/>
         </div>
       </div>
     </div>
     <div class="btn-toolbar">
-      <button type="submit" class="btn btn-primary btn-lg">Giriş Yap</button>
+      <button type="submit" class="btn btn-primary btn-lg" ng-disabled="wait">Giriş Yap</button>
       <button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Vazgeç</button>
     </div>
   </form>

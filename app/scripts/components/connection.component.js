@@ -26,14 +26,12 @@
             cs.settings.write(config);
             $uibModalInstance.dismiss('ok');
           })
-          .catch(err => {
-            console.log(err);
-
+          .catch(err =>
             $scope.$applyAsync(() => {
               $scope.wait = false;
               Notification.error('Veritabanına bağlanılamadı.');
-            });
-          })
+            })
+          )
       );
     }
   }
