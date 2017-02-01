@@ -3,7 +3,8 @@
     'ui.bootstrap',
     'ui.router',
     'ngAnimate',
-    'ui-notification'
+    'ui-notification',
+    'moment-picker'
   ]);
 
   function appRun($rootScope, ConnectionService) {

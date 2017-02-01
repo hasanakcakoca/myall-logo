@@ -78,7 +78,7 @@ gulp.task('serve', () => {
   electron.start(cbProcess);
 
   gulp.watch(['main.js', './app/**/*.js'], ['restart:browser']);
-  gulp.watch(['./app/**/*.html', './app/**/*.css'], ['reload:renderer']);
+  gulp.watch(['./app/**/*.html', './app/**/*.css', './app/**/*.sql'], ['reload:renderer']);
 });
 
 gulp.task('restart:browser', (done) => {

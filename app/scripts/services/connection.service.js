@@ -12,8 +12,17 @@
       },
       connect: function () {
         return this.settings.read().then(config =>
-          config ? new sql.Connection(config) : null
+          config ? new sql.Connection(config).connect() : null
         );
+      },
+      query: function (expression, iParams) {
+        const request = new sql.Request($rootScope.connection);
+
+        _.forEach(iParams, (value, key) =>
+          request.input(key, value)
+        );
+
+        return request.query(expression);
       },
       settings: {
         show: function () {

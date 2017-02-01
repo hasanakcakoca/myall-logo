@@ -3,14 +3,16 @@ process.once('loaded', () => {
   const lodash = require('lodash');
   const Promise = require('bluebird');
   const electron = require('electron');
+  const jetpack = require('fs-jetpack');
   const storage = require('electron-json-storage');
   const encryptor = require('simple-encryptor')(process.env.PRIVATE_KEY);
 
   const _session = electron.remote.session;
 
-  global._ = lodash;
   global.sql = sql;
+  global._ = lodash;
   global.process = process;
+  global.jetpack = jetpack;
   global.encryptor = encryptor;
   global.ipcRenderer = electron.ipcRenderer;
   global.storage = Promise.promisifyAll(storage);

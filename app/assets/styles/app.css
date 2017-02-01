@@ -1,13 +1,10 @@
 html, body {
+  overflow: hidden;
   background: rgba(0, 0, 0, 0);
 }
 
 body {
   font-size: 15px;
-}
-
-.draggable {
-  -webkit-app-region: drag;
 }
 
 *:active, *:focus {
@@ -17,6 +14,7 @@ body {
 main {
   margin: 20px;
   padding: 10px;
+  overflow: hidden;
   position: relative;
   border-radius: 6px;
   background-color: #fff;
@@ -37,6 +35,11 @@ main > button.close {
   margin-right: 5px;
 }
 
+main > hr {
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
 main > .container[ui-view] {
   margin-top: 30px;
 }
@@ -52,6 +55,18 @@ main > .container[ui-view] {
 
 .animated.delayed-2x {
   animation-delay: .8s;
+}
+
+.draggable, .dragarea {
+  -webkit-app-region: drag;
+}
+
+.dragarea {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 50px;
+  width: calc(100% - 40px);
 }
 
 p.lead {
@@ -72,6 +87,66 @@ footer {
 
 section.main button {
   margin-top: 30px;
+}
+
+.window-title {
+  font-size: 14px;
+  display: inline-block;
+}
+
+.window-title img {
+  margin-right: 10px;
+}
+
+.full-width {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+.dropdown-toggle .caret,
+.moment-picker .caret {
+  right: 14px;
+  color: #bbb;
+  margin-top: 10px;
+  position: absolute;
+}
+
+#btn-firms {
+  width: 225px;
+}
+
+#btn-firms .firm,
+#btn-firms ~ ul li a {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+#btn-firms .firm {
+  width: 175px;
+}
+
+#btn-firms ~ ul li a {
+  width: 100%;
+}
+
+#btn-period {
+  width: 140px;
+}
+
+#btn-form-type {
+  width: 140px;
+}
+
+#btn-commands .btn {
+  width: 88px;
+}
+
+.moment-picker {
+  display: inline-block;
 }
 
 .modal {

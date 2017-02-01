@@ -8,16 +8,23 @@
   <link rel="stylesheet" href="../bower_components/animate.css/animate.css">
   <link rel="stylesheet" href="../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
   <link rel="stylesheet" href="../bower_components/angular-ui-notification/dist/angular-ui-notification.css">
+  <link rel="stylesheet" href="../bower_components/angular-moment-picker/dist/angular-moment-picker.css">
   <link rel="stylesheet" href="assets/styles/bootstrap.css">
   <link rel="stylesheet" href="assets/styles/app.css">
   <!-- endbuild -->
 </head>
-<body class="draggable">
+<body>
   <main class="animated fadeIn delayed">
+    <div class="dragarea"></div>
+    <span class="window-title">
+      <img src="./assets/images/logo-96.png" width="24" class="pull-left">
+      i-Mutabakat Resmi Logo Aktarım Aracı
+    </span>
     <button type="button" class="close" ng-click="close()">&times;</button>
+    <hr>
     <div ui-view class="container animated">
     </div>
-    <footer class="animated fadeIn delayed-2x">
+    <footer class="animated fadeIn delayed-2x draggable">
       <hr>
       <p>
         Logo bağlantı bilgilerinizi değiştirmek için
@@ -31,11 +38,15 @@
   <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="../bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
+  <script src="../bower_components/moment/moment.js"></script>
+  <script src="../bower_components/moment/locale/tr.js"></script>
+  <script src="../bower_components/angular-moment-picker/dist/angular-moment-picker.js"></script>
   <!-- endbuild -->
   <!-- build:app scripts/app.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/app.config.js"></script>
   <script src="scripts/services/api.service.js"></script>
+  <script src="scripts/services/logo.service.js"></script>
   <script src="scripts/services/connection.service.js"></script>
   <script src="scripts/services/interceptor.service.js"></script>
   <script src="scripts/directives/focus.directive.js"></script>

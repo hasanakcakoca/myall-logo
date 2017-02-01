@@ -1,3 +1,46 @@
 <section class="animated fadeIn">
-  <h1>Cariler</h1>
+  <div class="btn-group animated bounceIn" uib-dropdown keyboard-nav>
+    <button id="btn-firms" type="button" class="btn btn-default" uib-dropdown-toggle>
+      <span class="pull-left">
+        <span class="firm" ng-show="firm">
+          {{("000" + firm.NR).slice(-3)}}, {{firm.NAME}}
+        </span>
+        <span ng-show="!firm">Firmalar</span>
+      </span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu full-width" uib-dropdown-menu role="menu" aria-labelledby="btn-firms">
+      <li role="menuitem" ng-repeat="firm in firms">
+        <a href ng-click="selectFirm(firm)">
+          {{("000" + firm.NR).slice(-3)}}, {{firm.NAME}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  &nbsp;
+  <a id="btn-period" class="btn btn-default animated bounceIn" moment-picker="date" format="MMMM YYYY" keyboard="true" today="true" change="">
+    <span class="pull-left">
+      {{date || 'Dönem'}}
+    </span>
+    <span class="caret"></span>
+  </a>
+  &nbsp;
+  <div class="btn-group animated bounceIn" uib-dropdown keyboard-nav>
+    <button id="btn-form-type" type="button" class="btn btn-default" uib-dropdown-toggle>
+      <span class="pull-left">
+        {{form.name || 'Form tipi'}}
+      </span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu full-width" uib-dropdown-menu role="menu" aria-labelledby="btn-form-type">
+      <li role="menuitem" ng-repeat="form in forms">
+        <a href ng-click="selectForm(form)">{{form.name}}</a>
+      </li>
+    </ul>
+  </div>
+  &nbsp;
+  <div id="btn-commands" class="btn-group animated bounceIn">
+    <a class="btn btn-default">Filtrele</a>
+    <a class="btn btn-default">Aktar</a>
+  </div>
 </section>

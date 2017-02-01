@@ -1,6 +1,14 @@
 (function () {
-  function appConfig($stateProvider, $urlRouterProvider, $qProvider, NotificationProvider) {
+  function appConfig($stateProvider,
+                     $urlRouterProvider,
+                     $qProvider,
+                     momentPickerProvider,
+                     NotificationProvider) {
     $qProvider.errorOnUnhandledRejections(false);
+
+    momentPickerProvider.options({
+      locale: 'tr'
+    });
 
     NotificationProvider.setOptions({
       delay: 2000,
@@ -29,6 +37,7 @@
       '$stateProvider',
       '$urlRouterProvider',
       '$qProvider',
+      'momentPickerProvider',
       'NotificationProvider',
       appConfig
     ]);
