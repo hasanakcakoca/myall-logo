@@ -44,6 +44,7 @@ gulp.task('copy', ['clean'], () => {
       './main.js',
       './package.json',
       './app/index.html',
+      './app/queries/**/*',
       './app/assets/images/*',
       './app/scripts/preload.js',
     ]
@@ -59,7 +60,10 @@ gulp.task('symlink', ['copy'], (done) => {
 
 gulp.task('build:templates', ['symlink'], () => {
   return gulp.src('./app/templates/*')
-    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      conservativeCollapse: true
+    }))
     .pipe(gulp.dest('./build/app/templates'));
 });
 

@@ -113,7 +113,7 @@ section.main button {
 }
 
 #btn-firms {
-  width: 225px;
+  width: 220px;
 }
 
 #btn-firms .firm,
@@ -126,7 +126,7 @@ section.main button {
 }
 
 #btn-firms .firm {
-  width: 175px;
+  width: 170px;
 }
 
 #btn-firms ~ ul li a {
