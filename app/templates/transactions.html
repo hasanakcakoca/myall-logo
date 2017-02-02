@@ -41,6 +41,24 @@
   &nbsp;
   <div id="btn-commands" class="btn-group animated bounceIn">
     <a class="btn btn-default">Filtrele</a>
-    <a class="btn btn-default">Aktar</a>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="table table-condensed table-bordered table-striped table-hover" ng-table="tableParams">
+      <tr ng-repeat="record in $data">
+        <td data-title="'Ad'" sortable="'first_name'">
+          {{record.first_name}}
+        </td>
+        <td data-title="'Soyad'" sortable="'last_name'">
+          {{record.last_name}}
+        </td>
+        <td data-title="'E-posta'" sortable="'email'">
+          {{record.email}}
+        </td>
+        <td data-title="'Cinsiyet'" sortable="'gender'">
+          {{record.gender}}
+        </td>
+      </tr>
+    </table>
   </div>
 </section>

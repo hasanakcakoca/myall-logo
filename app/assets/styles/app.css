@@ -115,13 +115,12 @@ section.main button {
 .dropdown-toggle .caret,
 .moment-picker .caret {
   right: 14px;
-  color: #bbb;
   margin-top: 10px;
   position: absolute;
 }
 
 #btn-firms {
-  width: 220px;
+  width: 316px;
 }
 
 #btn-firms .firm,
@@ -134,7 +133,7 @@ section.main button {
 }
 
 #btn-firms .firm {
-  width: 170px;
+  width: 266px;
 }
 
 #btn-firms ~ ul li a {
@@ -247,6 +246,55 @@ section.main button {
   transform: translateZ(0);
   -webkit-animation: modal-spinner 1.1s infinite linear;
   animation: modal-spinner 1.1s infinite linear;
+}
+
+.table-wrapper {
+  height: auto;
+  max-height: 290px;
+  overflow-y: auto;
+  margin-top: 20px;
+  overflow-x: hidden;
+  border: 1px solid #ddd;
+}
+
+.table {
+  border: none;
+  margin: -2px -2px 0;
+  width: calc(100% + 2px);
+  max-width: calc(100% + 2px);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #ddd;
+  border-left: 1px solid #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  padding: 4px;
+  background-color: #999;
+}
+
+.pagination {
+  bottom: 80px;
+  margin-left: -1px;
+  position: absolute;
+}
+
+[ng-table] td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 4px 8px !important;
+}
+
+tr > th:last-child,
+tr > td:last-child {
+  border-right: none !important;
+}
+
+tbody > tr:last-child > td {
+  border-bottom: none !important;
 }
 
 @-webkit-keyframes modal-spinner {

@@ -44,6 +44,7 @@ gulp.task('copy', ['clean'], () => {
       './main.js',
       './package.json',
       './app/index.html',
+      './app/i18n/**/*',
       './app/queries/**/*',
       './app/assets/images/*',
       './app/scripts/preload.js',

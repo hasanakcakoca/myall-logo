@@ -1,6 +1,9 @@
 'use strict';
 
+const env = process.env.NODE_ENV;
 const electron = require('electron');
+
+const isDevelopment = env === 'development';
 
 require('electron-context-menu')({
   labels: {
@@ -10,13 +13,12 @@ require('electron-context-menu')({
     save: 'Görseli kaydet',
     copyLink: 'Bağlantıyı kopyala',
     inspect: 'İncele'
-  }
+  },
+  showInspectElement: isDevelopment
 });
 
 const app = electron.app;
 const ipcMain = electron.ipcMain;
-
-const env = process.env.NODE_ENV;
 const appDir = `${__dirname}/app`;
 
 let mainWindow;
@@ -37,13 +39,14 @@ function createMainWindow() {
     transparent: true,
     alwaysOnTop: true,
     webPreferences: {
-      devTools: env === 'development',
+      devTools: isDevelopment,
       preload: `${appDir}/scripts/preload.js`
     }
 	};
 
 	const win = new electron.BrowserWindow(options);
 
+  win.setMenu(null);
 	win.loadURL(`file://${appDir}/index.html`);
 	win.on('closed', onClosed);
 
@@ -67,7 +70,7 @@ app.on('ready', () => {
 
 	mainWindow.show();
 
-	if (env === 'development') {
+	if (isDevelopment) {
     require('electron-connect').client.create(mainWindow);
 	}
 });
