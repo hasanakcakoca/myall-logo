@@ -2,6 +2,17 @@
 
 const electron = require('electron');
 
+require('electron-context-menu')({
+  labels: {
+    cut: 'Kes',
+    copy: 'Kopyala',
+    paste: 'Yapıştır',
+    save: 'Görseli kaydet',
+    copyLink: 'Bağlantıyı kopyala',
+    inspect: 'İncele'
+  }
+});
+
 const app = electron.app;
 const ipcMain = electron.ipcMain;
 

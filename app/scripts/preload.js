@@ -7,11 +7,13 @@ process.once('loaded', () => {
   const storage = require('electron-json-storage');
   const encryptor = require('simple-encryptor')(process.env.PRIVATE_KEY);
 
-  const _session = electron.remote.session;
+  const remote = electron.remote;
+  const _session = remote.session;
 
   global.sql = sql;
   global._ = lodash;
   global.process = process;
+  global.remote = remote;
   global.jetpack = jetpack;
   global.encryptor = encryptor;
   global.ipcRenderer = electron.ipcRenderer;
