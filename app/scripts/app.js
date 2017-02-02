@@ -5,7 +5,8 @@
     'ngAnimate',
     'ui-notification',
     'moment-picker',
-    'ngTable'
+    'ngTable',
+    'ngScrollbars'
   ]);
 
   function appRun($rootScope, ngTableDefaults, ConnectionService) {

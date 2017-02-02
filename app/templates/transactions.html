@@ -1,3 +1,7 @@
+<script type="text/ng-template" id="headerCheckbox.html">
+  <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value="" />
+</script>
+
 <section class="animated fadeIn">
   <div class="btn-group animated bounceIn" uib-dropdown keyboard-nav>
     <button id="btn-firms" type="button" class="btn btn-default" uib-dropdown-toggle>
@@ -41,11 +45,15 @@
   &nbsp;
   <div id="btn-commands" class="btn-group animated bounceIn">
     <a class="btn btn-default">Filtrele</a>
+    <a class="btn btn-default">Aktar</a>
   </div>
 
-  <div class="table-wrapper">
-    <table class="table table-condensed table-bordered table-striped table-hover" ng-table="tableParams">
+  <div ng-scrollbars class="table-wrapper">
+    <table class="table table-condensed table-bordered table-striped table-hover" ng-table="tableParams" fixed-header="table-wrapper">
       <tr ng-repeat="record in $data">
+        <td header="'headerCheckbox.html'" class="text-center">
+          <input type="checkbox" ng-model="checkboxes.items[record.id]" />
+        </td>
         <td data-title="'Ad'" sortable="'first_name'">
           {{record.first_name}}
         </td>

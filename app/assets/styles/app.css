@@ -87,10 +87,10 @@ a, input, textarea, button {
 }
 
 footer {
-  left: 40px;
+  left: 45px;
   bottom: 15px;
   position: absolute;
-  width: calc(100% - 80px);
+  width: calc(100% - 90px);
 }
 
 section.main button {
@@ -120,7 +120,7 @@ section.main button {
 }
 
 #btn-firms {
-  width: 316px;
+  width: 228px;
 }
 
 #btn-firms .firm,
@@ -133,7 +133,7 @@ section.main button {
 }
 
 #btn-firms .firm {
-  width: 266px;
+  width: 178px;
 }
 
 #btn-firms ~ ul li a {
@@ -250,35 +250,20 @@ section.main button {
 
 .table-wrapper {
   height: auto;
-  max-height: 290px;
-  overflow-y: auto;
-  margin-top: 20px;
-  overflow-x: hidden;
+  max-height: 365px;
+  margin-top: 16px;
   border: 1px solid #ddd;
+}
+
+.mCSB_scrollTools {
+  z-index: 999;
 }
 
 .table {
   border: none;
-  margin: -2px -2px 0;
-  width: calc(100% + 2px);
-  max-width: calc(100% + 2px);
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  background-color: #ddd;
-  border-left: 1px solid #ddd;
-}
-
-::-webkit-scrollbar-thumb {
-  padding: 4px;
-  background-color: #999;
-}
-
-.pagination {
-  bottom: 80px;
-  margin-left: -1px;
-  position: absolute;
+  margin: -1px -1px 0;
+  width: calc(100% + 1px);
+  max-width: calc(100% + 1px);
 }
 
 [ng-table] td {
@@ -288,13 +273,30 @@ section.main button {
   padding: 4px 8px !important;
 }
 
+[ng-table] thead {
+  margin-top: -2px !important;
+  z-index: 1 !important;
+}
+
+th {
+  background-color: #fff;
+}
+
 tr > th:last-child,
 tr > td:last-child {
   border-right: none !important;
 }
 
+tbody > tr:first-child > td {
+  border-top: none !important;
+}
+
 tbody > tr:last-child > td {
   border-bottom: none !important;
+}
+
+table input[type="checkbox"]:after {
+  margin-right: 0;
 }
 
 @-webkit-keyframes modal-spinner {
