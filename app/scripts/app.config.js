@@ -3,8 +3,7 @@
                      $urlRouterProvider,
                      $qProvider,
                      momentPickerProvider,
-                     NotificationProvider,
-                     ScrollBarsProvider) {
+                     NotificationProvider) {
     $qProvider.errorOnUnhandledRejections(false);
 
     momentPickerProvider.options({
@@ -19,13 +18,6 @@
        enable: false
       }
     });
-
-    ScrollBarsProvider.defaults = {
-      scrollInertia: 400,
-      axis: 'yx',
-      theme: 'minimal-dark',
-      autoHideScrollbar: true
-    };
 
     $urlRouterProvider.when('', '/');
     $urlRouterProvider.otherwise('/');
@@ -50,7 +42,6 @@
       '$qProvider',
       'momentPickerProvider',
       'NotificationProvider',
-      'ScrollBarsProvider',
       appConfig
     ]);
 })();

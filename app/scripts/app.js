@@ -4,8 +4,7 @@
     'ui.router',
     'ngAnimate',
     'ui-notification',
-    'moment-picker',
-    'ngScrollbars'
+    'moment-picker'
   ]);
 
   function appRun($rootScope, ConnectionService) {
