@@ -248,55 +248,12 @@ section.main button {
   animation: modal-spinner 1.1s infinite linear;
 }
 
-.table-wrapper {
-  height: auto;
-  max-height: 365px;
-  margin-top: 16px;
-  border: 1px solid #ddd;
-}
-
-.mCSB_scrollTools {
-  z-index: 999;
-}
-
-.table {
-  border: none;
-  margin: -1px -1px 0;
-  width: calc(100% + 1px);
-  max-width: calc(100% + 1px);
-}
-
-[ng-table] td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 4px 8px !important;
-}
-
-[ng-table] thead {
-  margin-top: -2px !important;
-  z-index: 1 !important;
-}
-
-th {
-  background-color: #fff;
-}
-
-tr > th:last-child,
-tr > td:last-child {
-  border-right: none !important;
-}
-
-tbody > tr:first-child > td {
-  border-top: none !important;
-}
-
-tbody > tr:last-child > td {
-  border-bottom: none !important;
-}
-
-table input[type="checkbox"]:after {
-  margin-right: 0;
+.loader {
+  top: 52%;
+  left: 48%;
+  position: absolute;
+  text-align: center;
+  transform: translate(-48%, -52%);
 }
 
 @-webkit-keyframes modal-spinner {

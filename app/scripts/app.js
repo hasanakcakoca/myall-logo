@@ -5,11 +5,10 @@
     'ngAnimate',
     'ui-notification',
     'moment-picker',
-    'ngTable',
     'ngScrollbars'
   ]);
 
-  function appRun($rootScope, ngTableDefaults, ConnectionService) {
+  function appRun($rootScope, ConnectionService) {
     $rootScope.close = function () {
       ipcRenderer.send('close');
     };
@@ -32,13 +31,10 @@
         );
     };
 
-    ngTableDefaults.params.count = 50;
-    ngTableDefaults.settings.counts = [];
-
     $rootScope.connect();
   }
 
-  app.run(['$rootScope', 'ngTableDefaults', 'ConnectionService', appRun]);
+  app.run(['$rootScope', 'ConnectionService', appRun]);
 
   angular.element(document)
     .ready(function () {

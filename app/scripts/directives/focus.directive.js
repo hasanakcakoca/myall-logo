@@ -2,14 +2,12 @@
   'use strict';
 
   angular.module('app')
-    .directive('ngFocus', ['$timeout', function ($timeout) {
+    .directive('ngFocus', ['$timeout', ($timeout) => {
       return {
-        link: function (scope, element, attrs) {
-          scope.$watch(attrs.ngFocus, function (val) {
+        link: (scope, element, attrs) => {
+          scope.$watch(attrs.ngFocus, (val) => {
             if (angular.isDefined(val) && val) {
-              $timeout(function () {
-                element[0].focus();
-              });
+              $timeout(() => element[0].focus());
             }
           }, true);
         }

@@ -15,6 +15,9 @@
       },
       getPeriod: function (firmNr) {
         return cs.query(this.util.getQuery('period'), {firmNr});
+      },
+      getClients: function () {
+        return cs.query(this.util.getQuery('clients'));
       }
     };
   }

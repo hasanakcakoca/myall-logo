@@ -40,7 +40,6 @@ function createMainWindow() {
     alwaysOnTop: true,
     webPreferences: {
       devTools: isDevelopment,
-      nodeIntegration: false,
       preload: `${appDir}/scripts/preload.js`
     }
 	};
