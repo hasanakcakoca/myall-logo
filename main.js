@@ -36,6 +36,7 @@ function createMainWindow() {
     height: 650,
     show: false,
     frame: false,
+    resizable: false,
     transparent: true,
     alwaysOnTop: true,
     webPreferences: {

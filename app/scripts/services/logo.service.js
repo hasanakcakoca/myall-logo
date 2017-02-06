@@ -16,8 +16,14 @@
       getPeriod: function (firmNr) {
         return cs.query(this.util.getQuery('period'), {firmNr});
       },
-      getClients: function () {
-        return cs.query(this.util.getQuery('clients'));
+      getBalance: function (filter) {
+        return cs.query(this.util.getQuery('balance'), filter);
+      },
+      getFormBA: function (filter) {
+        return cs.query(this.util.getQuery('form-ba'), filter);
+      },
+      getFormBS: function (filter) {
+        return cs.query(this.util.getQuery('form-bs'), filter);
       }
     };
   }
