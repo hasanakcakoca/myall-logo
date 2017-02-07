@@ -20,8 +20,8 @@ SET @strSql = N'
       SPECODE AS [Ozel Kod],
       INCHARGE AS [İlgili Kişi],
       EMAILADDR AS [E-Posta],
-      TELCODES1 + '' '' + TELNRS1 AS [Telefon],
-      FAXCODE + '' '' + FAXNR AS [Faks],
+      LTRIM(TELCODES1 + '' '' + TELNRS1) AS [Telefon],
+      LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
       CAST([Faturalar].[Adet] AS float) + CAST([Cari Fişleri].[Adet] AS float) AS Adet,
 			CAST([Faturalar].[Tutar] AS float) + CAST([Cari Fişleri].[Tutar] AS float) AS Tutar
     FROM

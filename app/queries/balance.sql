@@ -29,8 +29,8 @@ SET @strSql = N'
       SPECODE AS [Ozel Kod],
       INCHARGE AS [İlgili Kişi],
       EMAILADDR AS [E-Posta],
-      TELCODES1 + '' '' + TELNRS1 AS [Telefon],
-      FAXCODE + '' '' + FAXNR AS [Faks],
+      LTRIM(TELCODES1 + '' '' + TELNRS1) AS [Telefon],
+      LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
       ISNULL(abs([Borç] - [Alacak]), 0) AS [Tutar],
       (
         CASE
