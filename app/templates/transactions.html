@@ -44,7 +44,7 @@
   </div>
   &nbsp;
   <div id="btn-commands" class="btn-group animated bounceIn">
-    <a class="btn btn-default" ng-disabled="!loaded">Filtrele</a>
+    <a class="btn btn-default" ng-disabled="!loaded" ng-click="filter()">Filtrele</a>
 
     <div class="btn-group" uib-dropdown keyboard-nav>
       <button id="btn-export" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="!loaded || isEmpty">
@@ -67,8 +67,8 @@
   <div class="main-message" ng-show="isEmpty || !(loading || loaded)">
     <img src="./assets/images/no-data-96.png" class="animated bounceIn delayed" width="96">
     <h3 class="text-success animated zoomIn delayed">Burası çok ıssız!</h3>
-    <h4 class="text-muted animated fadeIn delayed-2x" ng-class="{'hidden': isEmpty}">Firma, dönem ve form tipi seçin...</h4>
-    <h4 class="text-muted animated fadeIn" ng-show="isEmpty">Ne yazık ki uygun kayıt bulamadık.</h4>
+    <h4 class="text-muted animated fadeIn" ng-class="{'hidden': isEmpty}">Firma, dönem ve form tipi seçin...</h4>
+    <h4 class="text-muted animated fadeIn" ng-class="{'hidden': !isEmpty}">Ne yazık ki uygun kayıt bulamadık.</h4>
   </div>
 
   <div class="main-message" ng-show="loaded && !isEmpty">
@@ -77,6 +77,6 @@
     <h5 class="text-muted animated fadeIn">Kayıtları filtreleyebilir ve dışarıya aktarabilirsiniz</a>.</h5>
   </div>
 
-  <div class="main-spinner" ng-show="loading">
+  <div class="main-spinner" ng-show="loading && !isEmpty">
   </div>
 </section>

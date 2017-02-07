@@ -1,7 +1,7 @@
-select
-  NR as nr,
-  NAME as name
-from
+SELECT
+  NR AS nr,
+  NAME AS name
+FROM
   L_CAPIFIRM
-order by
+ORDER BY
   NR

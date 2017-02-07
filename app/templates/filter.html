@@ -1,0 +1,40 @@
+<div class="modal-body">
+  <form class="form" name="form" ng-submit="" novalidate>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label>Arama</label>
+          <input type="text" name="search" class="form-control" placeholder="Cari hesap kodu, açıklaması ya da vergi numarası" ng-model="search" autofocus/>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Özel Kod</label>
+          <input type="text" name="client-specode" class="form-control" placeholder="Cari hesap özel kodu" ng-model="clSpeCode" autofocus/>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <input type="text" name="invoice-specode" class="form-control" placeholder="Fatura özel kodu" ng-model="invSpeCode" autofocus/>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="onlyWithBalance"> Sadece bakiyesi olanlar
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="onlyWithEmail"> Sadece e-posta adresi olanlar
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="btn-toolbar">
+      <button type="submit" class="btn btn-primary btn-lg">Tamam</button>
+      <button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Vazgeç</button>
+    </div>
+  </form>
+</div>

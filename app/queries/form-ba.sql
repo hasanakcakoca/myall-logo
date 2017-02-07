@@ -1,71 +1,77 @@
-declare @strLimit varchar(30)
-declare @strMonth varchar(2)
-declare @strYear varchar(4)
-declare @strSql nvarchar(MAX)
+DECLARE @strSql nvarchar(MAX)
 
-set @strLimit = cast(@limit as varchar(30))
-set @strMonth = cast(@month as varchar(2))
-set @strYear = cast(@year as varchar(4))
-
-set @strSql = N'
-  select
-    ''Form BA'' as [Form Tipi],
-    ''TRY'' as [Para Birimi],
-    ' + @strMonth + ' as [Ay],
-    ' + @strYear + ' as [Yıl],
+SET @strSql = N'
+  SELECT
+    @prmMonth AS [Ay],
+    @prmYear AS [Yıl],
+    @prmFormType AS [Form Tipi],
+    @prmCurrency AS [Para Birimi],
     *
-  from (
-    select
-      DEFINITION_ as [Ad],
+  FROM (
+    SELECT
+      DEFINITION_ AS [Ad],
       (
-        case ISPERSCOMP
-            when 1 THEN TCKNO
-            else TAXNR
-        end
-      ) as [Vergi No],
-      SPECODE as [Ozel Kod],
-      INCHARGE as [İlgili Kişi],
-      EMAILADDR as [E-Posta],
-      TELCODES1 + '' '' + TELNRS1 as [Telefon],
-      FAXCODE + '' '' + FAXNR as [Faks],
-      cast([Faturalar].[Adet] as float) + cast([Cari Fişleri].[Adet] as float) as Adet,
-			cast([Faturalar].[Tutar] as float) + cast([Cari Fişleri].[Tutar] as float) as Tutar
-    from
-      LG_' + @firmNr + '_CLCARD as [Cariler]
-      cross apply (
-        select
-          count(LOGICALREF) as [Adet],
-          isnull(sum(GROSSTOTAL - TOTALDISCOUNTS), 0) as [Tutar]
-        from
+        CASE ISPERSCOMP
+          WHEN 1 THEN TCKNO
+          ELSE TAXNR
+        END
+      ) AS [Vergi No],
+      SPECODE AS [Ozel Kod],
+      INCHARGE AS [İlgili Kişi],
+      EMAILADDR AS [E-Posta],
+      TELCODES1 + '' '' + TELNRS1 AS [Telefon],
+      FAXCODE + '' '' + FAXNR AS [Faks],
+      CAST([Faturalar].[Adet] AS float) + CAST([Cari Fişleri].[Adet] AS float) AS Adet,
+			CAST([Faturalar].[Tutar] AS float) + CAST([Cari Fişleri].[Tutar] AS float) AS Tutar
+    FROM
+      LG_' + @firmNr + '_CLCARD AS [Cariler]
+      CROSS APPLY (
+        SELECT
+          COUNT(LOGICALREF) AS [Adet],
+          ISNULL(SUM(GROSSTOTAL - TOTALDISCOUNTS), 0) AS [Tutar]
+        FROM
           LG_' + @firmNr + '_' + @periodNr + '_INVOICE
-        where
-          CANCELLED = 0 and
-          TRCODE IN (1, 2, 3, 4) and
-          CLIENTREF = Cariler.LOGICALREF and
-          month(DATE_) = ' + @strMonth + ' and
-          year(DATE_) = ' + @strYear + '
-      ) as [Faturalar]
-      cross apply (
-        select
-          count(LOGICALREF) AS [Adet],
-          isnull(sum(BRUTAMOUNT), 0) as [Tutar]
-        from
+        WHERE
+          CANCELLED = 0 AND
+          TRCODE IN (1, 2, 3, 4) AND
+          CLIENTREF = Cariler.LOGICALREF AND
+          MONTH(DATE_) = @prmMonth AND
+          YEAR(DATE_) = @prmYear
+      ) AS [Faturalar]
+      CROSS APPLY (
+        SELECT
+          COUNT(LOGICALREF) AS [Adet],
+          ISNULL(SUM(BRUTAMOUNT), 0) AS [Tutar]
+        FROM
           LG_' + @firmNr + '_' + @periodNr + '_CLFLINE
-        where
-          TRCODE = 46 and
-          CLIENTREF = [Cariler].LOGICALREF and
-          month(DATE_) = ' + @strMonth + ' and
-          year(DATE_) = ' + @strYear + '
-      ) as [Cari Fişleri]
-    where
-        [Cariler].ACTIVE = 0 and
-        [Faturalar].[Tutar] + [Cari Fişleri].[Tutar] >= ' +  @strLimit + '
-  ) as t
-  where
-    t.[Ad] <> '''' and
+        WHERE
+          TRCODE = 46 AND
+          CLIENTREF = [Cariler].LOGICALREF AND
+          MONTH(DATE_) = @prmMonth AND
+          YEAR(DATE_) = @prmYear
+      ) AS [Cari Fişleri]
+    WHERE
+      [Cariler].ACTIVE = 0 AND
+      [Faturalar].[Tutar] + [Cari Fişleri].[Tutar] >= @prmLimit
+  ) AS t
+  WHERE
+    t.[Ad] <> '''' AND
     t.[Vergi No] <> ''''
-  order by
+  ORDER BY
     t.[Ad]
 '
 
-execute sp_executesql @strSql
+EXECUTE sp_executesql
+  @strSql,
+  N'
+    @prmMonth int,
+    @prmYear int,
+    @prmLimit float,
+    @prmFormType varchar(7),
+    @prmCurrency varchar(3)
+  ',
+  @prmMonth = @month,
+  @prmYear = @year,
+  @prmLimit = @limit,
+  @prmFormType = 'Form BA',
+  @prmCurrency = 'TRY'

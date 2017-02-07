@@ -16,14 +16,14 @@
       getPeriod: function (firmNr) {
         return cs.query(this.util.getQuery('period'), {firmNr});
       },
-      getBalance: function (filter) {
-        return cs.query(this.util.getQuery('balance'), filter);
+      getBalance: function (params) {
+        return cs.query(this.util.getQuery('balance'), params);
       },
-      getFormBA: function (filter) {
-        return cs.query(this.util.getQuery('form-ba'), filter);
+      getFormBA: function (params) {
+        return cs.query(this.util.getQuery('form-ba'), params);
       },
-      getFormBS: function (filter) {
-        return cs.query(this.util.getQuery('form-bs'), filter);
+      getFormBS: function (params) {
+        return cs.query(this.util.getQuery('form-bs'), params);
       }
     };
   }

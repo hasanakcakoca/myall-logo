@@ -1,9 +1,9 @@
-select
-  NR as nr,
-  BEGDATE as begDate,
-  ENDDATE as endDate
-from
+SELECT
+  NR AS nr,
+  BEGDATE AS begDate,
+  ENDDATE AS endDate
+FROM
   L_CAPIPERIOD
-where
-  ACTIVE = 1 and
+WHERE
+  ACTIVE = 1 AND
   FIRMNR = @firmNr
