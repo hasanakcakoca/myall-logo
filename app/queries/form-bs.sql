@@ -83,17 +83,17 @@ EXECUTE sp_executesql
     @prmMonth int,
     @prmYear int,
     @prmLimit float,
+    @prmCurrency varchar(3),
     @prmClSpeCode varchar(10),
     @prmInvSpeCode varchar(10),
     @prmOnlyWithEmail bit,
-    @prmFormType varchar(7),
-    @prmCurrency varchar(3)
+    @prmFormType varchar(7)
   ',
   @prmMonth = @month,
   @prmYear = @year,
   @prmLimit = @limit,
+  @prmCurrency = @currency,
   @prmClSpeCode = @clSpeCode,
   @prmInvSpeCode = @invSpeCode,
   @prmOnlyWithEmail = @onlyWithEmail,
-  @prmFormType = 'Form BS',
-  @prmCurrency = 'TRY'
+  @prmFormType = 'Form BS'

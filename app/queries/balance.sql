@@ -14,6 +14,7 @@ SET @strSql = N'
     @prmMonth AS [Ay],
     @prmYear AS [Yıl],
     @prmFormType AS [Form Tipi],
+    @prmCurrency AS [Para Birimi],
     *
   FROM (
     SELECT
@@ -83,12 +84,14 @@ EXECUTE sp_executesql
     @prmMonth int,
     @prmYear int,
     @prmFormType varchar(6),
+    @prmCurrency varchar(3),
     @prmClSpeCode varchar(10),
     @prmOnlyWithBalance bit,
     @prmOnlyWithEmail bit
   ',
   @prmMonth = @month,
   @prmYear = @year,
+  @prmCurrency = @currency,
   @prmClSpeCode = @clSpeCode,
   @prmOnlyWithBalance = @onlyWithBalance,
   @prmOnlyWithEmail = @onlyWithEmail,

@@ -65,14 +65,14 @@
   </div>
 
   <div class="main-message" ng-show="isEmpty || !(loading || loaded)">
-    <img src="./assets/images/no-data-96.png" class="animated bounceIn delayed" width="96">
+    <img src="./assets/images/no-data-96.png" class="animated bounceIn delayed" width="96" height="96">
     <h3 class="text-success animated zoomIn delayed">Burası çok ıssız!</h3>
     <h4 class="text-muted animated fadeIn" ng-class="{'hidden': isEmpty}">Firma, dönem ve form tipi seçin...</h4>
     <h4 class="text-muted animated fadeIn" ng-class="{'hidden': !isEmpty}">Ne yazık ki uygun kayıt bulamadık.</h4>
   </div>
 
   <div class="main-message" ng-show="loaded && !isEmpty">
-    <img src="./assets/images/data-96.png" class="animated bounceIn delayed" width="96">
+    <img src="./assets/images/data-96.png" class="animated bounceIn delayed" width="96" height="96">
     <h3 class="text-warning animated zoomIn delayed">{{count | number: 0}} kayıt bulduk.</h3>
     <h5 class="text-muted animated fadeIn">Kayıtları filtreleyebilir ve dışarıya aktarabilirsiniz</a>.</h5>
   </div>

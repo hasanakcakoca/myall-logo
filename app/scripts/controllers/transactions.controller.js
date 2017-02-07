@@ -70,13 +70,15 @@
 
     $scope.load = function (config) {
       if (config.firm && config.date && config.form) {
-        LogoService.getPeriod(config.firm.nr).then(result => {
+        LogoService.getFirmInfo(config.firm.nr).then(result => {
           const limit = 5000;
 
-          const period = _.head(result);
+          const firmInfo = _.head(result);
 
           const firmNr = ("000" + config.firm.nr).slice(-3);
-          const periodNr = ("00" + period.nr).slice(-2);
+          const periodNr = ("00" + firmInfo.periodNr).slice(-2);
+
+          const currency = firmInfo.currency;
 
           const year = config.date.year;
           const month = config.date.month;
@@ -84,7 +86,8 @@
           const formType = config.form.type;
 
           const params = _.merge(config.options, {
-            firmNr, periodNr, formType, month, year, limit
+            firmNr, periodNr, currency,
+            formType, month, year, limit
           });
 
           let promise;
@@ -110,8 +113,7 @@
               $scope.loading = false;
 
               $timeout(() => {
-                $scope.orgData = angular.copy(data);
-
+                $scope.data = data;
                 $scope.isEmpty = !data[0];
                 $scope.count = data.length;
 

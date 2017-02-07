@@ -13,8 +13,8 @@
       getFirms: function () {
         return cs.query(this.util.getQuery('firms'));
       },
-      getPeriod: function (firmNr) {
-        return cs.query(this.util.getQuery('period'), {firmNr});
+      getFirmInfo: function (firmNr) {
+        return cs.query(this.util.getQuery('firm-info'), {firmNr});
       },
       getBalance: function (params) {
         return cs.query(this.util.getQuery('balance'), params);
