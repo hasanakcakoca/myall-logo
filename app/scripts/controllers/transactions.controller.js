@@ -6,14 +6,28 @@
                                   $timeout,
                                   $uibModal,
                                   LogoService) {
-    $scope.options = {};
-    $scope.orgData = [];
-
     $scope.forms = [
       {type: 1, name: 'Bakiye'},
       {type: 2, name: 'Form BA'},
       {type: 3, name: 'Form BS'}
     ];
+
+    $scope.getDefaultOptions = function () {
+      return {
+        search: '',
+        clSpeCode: '',
+        invSpeCode: '',
+        onlyWithBalance: true,
+        onlyWithEmail: true
+      }
+    };
+
+    $scope.filtered = function () {
+      return !_.isMatch(
+        $scope.options,
+        $scope.getDefaultOptions()
+      );
+    };
 
     $scope.getFirms = function () {
       LogoService.getFirms().then(firms =>
@@ -23,6 +37,8 @@
               delete $scope.firm;
 
               $scope.firms = firms;
+              $scope.options = $scope.getDefaultOptions();
+
               $scope.isEmpty = false;
               $scope.loaded = false;
 
@@ -67,7 +83,9 @@
 
           const formType = config.form.type;
 
-          const params = {firmNr, periodNr, formType, month, year, limit};
+          const params = _.merge(config.options, {
+            firmNr, periodNr, formType, month, year, limit
+          });
 
           let promise;
 
@@ -89,12 +107,9 @@
 
           promise.then(data =>
             $scope.$applyAsync(() => {
-              console.log(data);
-
               $scope.loading = false;
 
               $timeout(() => {
-                $scope.options = {};
                 $scope.orgData = angular.copy(data);
 
                 $scope.isEmpty = !data[0];
@@ -103,7 +118,9 @@
                 $scope.loaded = true;
               });
             })
-          ).catch(() => {
+          ).catch(err => {
+            console.log(err);
+
             $scope.loading = false;
             $scope.isEmpty = true;
           });
@@ -117,13 +134,16 @@
       angular.extend(modalScope, $scope.options);
 
       const modalInstance = $uibModal.open({
+        scope: modalScope,
         backdrop: 'static',
         windowClass: 'modal-default',
         controller: 'FilterController',
         templateUrl: './templates/filter.html'
       });
 
-      modalInstance.result.then(() => alert(''));
+      modalInstance.result.then(options =>
+        $scope.options = options
+      );
     };
 
     $scope.$watch('$root.connection', () =>
@@ -147,7 +167,8 @@
       return {
         firm: $scope.firm,
         date: $scope.date,
-        form: $scope.form
+        form: $scope.form,
+        options: $scope.options
       }
     }, $scope.load, true);
   }

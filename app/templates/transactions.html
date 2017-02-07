@@ -44,7 +44,7 @@
   </div>
   &nbsp;
   <div id="btn-commands" class="btn-group animated bounceIn">
-    <a class="btn btn-default" ng-disabled="!loaded" ng-click="filter()">Filtrele</a>
+    <a class="btn btn-default" ng-disabled="!loaded" ng-class="{'btn-warning': filtered()}" ng-click="filter()">Filtrele</a>
 
     <div class="btn-group" uib-dropdown keyboard-nav>
       <button id="btn-export" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="!loaded || isEmpty">

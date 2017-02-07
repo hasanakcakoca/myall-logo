@@ -17,6 +17,7 @@ SET @strSql = N'
     *
   FROM (
     SELECT
+      CODE AS [Kod],
       DEFINITION_ AS [Ad],
       (
         CASE ISPERSCOMP
@@ -52,12 +53,26 @@ SET @strSql = N'
           YEAR_ = @prmYear
       ) AS [Cari Toplamlari]
     WHERE
-      [Cariler].ACTIVE = 0
+      [Cariler].ACTIVE = 0 AND (
+        @prmClSpeCode = '''' OR
+        [Cariler].SPECODE = @prmClSpeCode
+      ) AND (
+        @prmOnlyWithEmail = 0 OR (
+          EMAILADDR <> '''' AND
+          EMAILADDR IS NOT NULL
+        )
+      )
   ) AS t
   WHERE
     t.[Ad] <> '''' AND
-    t.[Vergi No] <> '''' AND
-    t.[Tutar] <> 0
+    t.[Vergi No] <> '''' AND (
+      @prmOnlyWithBalance = 0 OR
+      t.[Tutar] <> 0
+    ) AND (
+      t.[Kod] LIKE ''%' + @search + '%'' OR
+      t.[Ad] LIKE ''%' + @search + '%'' OR
+      t.[Vergi No] LIKE ''%' + @search + '%''
+    )
   ORDER BY
     t.[Ad]
 '
@@ -67,8 +82,14 @@ EXECUTE sp_executesql
   N'
     @prmMonth int,
     @prmYear int,
-    @prmFormType varchar(6)
+    @prmFormType varchar(6),
+    @prmClSpeCode varchar(10),
+    @prmOnlyWithBalance bit,
+    @prmOnlyWithEmail bit
   ',
   @prmMonth = @month,
   @prmYear = @year,
+  @prmClSpeCode = @clSpeCode,
+  @prmOnlyWithBalance = @onlyWithBalance,
+  @prmOnlyWithEmail = @onlyWithEmail,
   @prmFormType = 'Bakiye'

@@ -9,6 +9,7 @@ SET @strSql = N'
     *
   FROM (
     SELECT
+      CODE AS [Kod],
       DEFINITION_ AS [Ad],
       (
         CASE ISPERSCOMP
@@ -36,7 +37,10 @@ SET @strSql = N'
           TRCODE IN (6, 7, 8, 9) AND
           CLIENTREF = Cariler.LOGICALREF AND
           MONTH(DATE_) = @prmMonth AND
-          YEAR(DATE_) = @prmYear
+          YEAR(DATE_) = @prmYear AND (
+            @prmInvSpeCode = '''' OR
+            SPECODE = @prmInvSpeCode
+          )
       ) AS [Faturalar]
       CROSS APPLY (
         SELECT
@@ -52,11 +56,23 @@ SET @strSql = N'
       ) AS [Cari Fişleri]
     WHERE
       [Cariler].ACTIVE = 0 AND
-      [Faturalar].[Tutar] + [Cari Fişleri].[Tutar] >= @prmLimit
+      [Faturalar].[Tutar] + [Cari Fişleri].[Tutar] >= @prmLimit AND (
+        @prmClSpeCode = '''' OR
+        [Cariler].SPECODE = @prmClSpeCode
+      ) AND (
+        @prmOnlyWithEmail = 0 OR (
+          EMAILADDR <> '''' AND
+          EMAILADDR IS NOT NULL
+        )
+      )
   ) AS t
   WHERE
     t.[Ad] <> '''' AND
-    t.[Vergi No] <> ''''
+    t.[Vergi No] <> '''' AND (
+      t.[Kod] LIKE ''%' + @search + '%'' OR
+      t.[Ad] LIKE ''%' + @search + '%'' OR
+      t.[Vergi No] LIKE ''%' + @search + '%''
+    )
   ORDER BY
     t.[Ad]
 '
@@ -67,11 +83,17 @@ EXECUTE sp_executesql
     @prmMonth int,
     @prmYear int,
     @prmLimit float,
+    @prmClSpeCode varchar(10),
+    @prmInvSpeCode varchar(10),
+    @prmOnlyWithEmail bit,
     @prmFormType varchar(7),
     @prmCurrency varchar(3)
   ',
   @prmMonth = @month,
   @prmYear = @year,
   @prmLimit = @limit,
+  @prmClSpeCode = @clSpeCode,
+  @prmInvSpeCode = @invSpeCode,
+  @prmOnlyWithEmail = @onlyWithEmail,
   @prmFormType = 'Form BS',
   @prmCurrency = 'TRY'
