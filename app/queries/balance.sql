@@ -11,6 +11,7 @@ ELSE
 
 SET @strSql = N'
   SELECT
+    0 AS [Adet],
     @prmMonth AS [Ay],
     @prmYear AS [Yıl],
     @prmFormType AS [Form Tipi],

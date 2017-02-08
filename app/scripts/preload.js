@@ -1,20 +1,20 @@
 process.once('loaded', () => {
-  const sql = require('mssql');
+  const fs = require('fs');
   const lodash = require('lodash');
   const Promise = require('bluebird');
   const electron = require('electron');
-  const jetpack = require('fs-jetpack');
   const storage = require('electron-json-storage');
   const encryptor = require('simple-encryptor')(process.env.PRIVATE_KEY);
 
-  const remote = electron.remote;
+  const {remote} = electron;
+  const {app} = remote;
   const _session = remote.session;
 
-  global.sql = sql;
+  global.fs = fs;
+  global.app = app;
   global._ = lodash;
   global.process = process;
   global.remote = remote;
-  global.jetpack = jetpack;
   global.encryptor = encryptor;
   global.ipcRenderer = electron.ipcRenderer;
   global.storage = Promise.promisifyAll(storage);

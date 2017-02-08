@@ -7,7 +7,7 @@
     return {
       util: {
         getQuery: function (file) {
-          return jetpack.read(`${__dirname}/queries/${file}.sql`);
+          return fs.readFileSync(`${__dirname}/queries/${file}.sql`, 'utf8');
         }
       },
       getFirms: function () {

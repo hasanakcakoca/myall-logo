@@ -38,7 +38,6 @@ function createMainWindow() {
     frame: false,
     resizable: false,
     transparent: true,
-    alwaysOnTop: true,
     webPreferences: {
       devTools: isDevelopment,
       preload: `${appDir}/scripts/preload.js`

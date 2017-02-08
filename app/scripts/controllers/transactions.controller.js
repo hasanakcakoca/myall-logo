@@ -1,6 +1,9 @@
 (function () {
   'use strict';
 
+  const {dialog} = remote;
+  const alasql = require('alasql');
+
   function TransactionsController($scope,
                                   $rootScope,
                                   $timeout,
@@ -145,6 +148,39 @@
 
       modalInstance.result.then(options =>
         $scope.options = options
+      );
+    };
+
+    $scope.exportToExcel = function () {
+      dialog.showSaveDialog({
+        defaultPath: app.getPath('desktop'),
+        filters: [{
+          name: 'Çalışma Sayfası',
+          extensions: ['xlsx']
+        }]
+      }, filename =>
+        alasql(
+          `
+            SELECT
+              [Vergi No],
+              [Ad],
+              [Form Tipi],
+              [Ay],
+              [Yıl],
+              [Adet],
+              [Tutar],
+              [Para Birimi],
+              [Borç/Alacak],
+              [E-Posta],
+              [Telefon],
+              [Faks],
+              [İlgili Kişi]
+            INTO
+              XLSX('${filename}', {})
+            FROM ?
+          `,
+          [$scope.data]
+        )
       );
     };
 

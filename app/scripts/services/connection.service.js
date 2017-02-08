@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const sql = require('mssql');
+
   function ConnectionService($rootScope, $uibModal) {
     return {
       test: function (config) {
