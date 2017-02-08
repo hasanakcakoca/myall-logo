@@ -8,6 +8,7 @@
                                   $rootScope,
                                   $timeout,
                                   $uibModal,
+                                  Notification,
                                   LogoService) {
     $scope.forms = [
       {type: 1, name: 'Bakiye'},
@@ -44,6 +45,7 @@
 
               $scope.isEmpty = false;
               $scope.loaded = false;
+              $scope.loading = false;
 
               if (config) {
                 $scope.form = config.form;
@@ -73,6 +75,9 @@
 
     $scope.load = function (config) {
       if (config.firm && config.date && config.form) {
+        $scope.loaded = false;
+        $scope.loading = true;
+
         LogoService.getFirmInfo(config.firm.nr).then(result => {
           const limit = 5000;
 
@@ -94,9 +99,6 @@
           });
 
           let promise;
-
-          $scope.loaded = false;
-          $scope.loading = true;
 
           storage.setAsync('config', config);
 
@@ -159,7 +161,7 @@
           extensions: ['xlsx']
         }]
       }, filename =>
-        alasql(
+        alasql.promise(
           `
             SELECT
               [Vergi No],
@@ -180,15 +182,19 @@
             FROM ?
           `,
           [$scope.data]
+        ).then(() =>
+          Notification.success('Excel aktarımı tamamlandı.')
         )
       );
     };
 
-    $scope.$watch('$root.connection', () =>
+    $scope.$watch('$root.connection', () => {
+      $scope.loading = true;
+
       $rootScope.connection ?
         $scope.getFirms() :
         $rootScope.showConnectionSettings()
-    );
+    });
 
     $scope.$watch('selectedDate', date => {
       if (!date) return;
@@ -216,6 +222,7 @@
     '$rootScope',
     '$timeout',
     '$uibModal',
+    'Notification',
     'LogoService',
     TransactionsController
   ]);
