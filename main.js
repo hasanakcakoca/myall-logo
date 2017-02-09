@@ -1,5 +1,14 @@
 'use strict';
 
+const setupEvents = require('./installers/win/setup-events.win');
+
+if (
+  process.platform === 'win32' &&
+  setupEvents.handleSquirrelEvent()
+) {
+  return;
+}
+
 const env = process.env.NODE_ENV;
 const electron = require('electron');
 
@@ -23,8 +32,11 @@ const appDir = `${__dirname}/app`;
 
 let mainWindow;
 
-require('electron-debug')();
-require('dotenv').config();
+if (isDevelopment) {
+  require('electron-debug')();
+}
+
+require('dotenv').config({path: `${__dirname}/.env`});
 
 function onClosed() {
 	mainWindow = null;
