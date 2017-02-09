@@ -1,6 +1,15 @@
-<script type="text/ng-template" id="headerCheckbox.html">
-  <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value="" />
-</script>
+<div class="main-message" ng-show="!loading && (isEmpty || !loaded)">
+  <img src="./assets/images/no-data-96.png" class="animated bounceIn delayed" width="96" height="96">
+  <h3 class="text-success animated zoomIn delayed">Burası çok ıssız!</h3>
+  <h4 class="text-muted animated fadeIn" ng-class="{'hidden': isEmpty}">Firma, dönem ve form tipi seçin...</h4>
+  <h4 class="text-muted animated fadeIn" ng-class="{'hidden': !isEmpty}">Ne yazık ki uygun kayıt bulamadık.</h4>
+</div>
+
+<div class="main-message" ng-show="loaded && !(isEmpty || loading)">
+  <img src="./assets/images/data-96.png" class="animated bounceIn delayed" width="96" height="96">
+  <h3 class="text-warning animated zoomIn delayed">{{count | number: 0}} kayıt bulduk.</h3>
+  <h5 class="text-muted animated fadeIn">Kayıtları filtreleyebilir ve dışarıya aktarabilirsiniz</a>.</h5>
+</div>
 
 <section class="animated fadeIn text-center">
   <div class="btn-group animated bounceIn" uib-dropdown keyboard-nav>
@@ -58,25 +67,11 @@
           <a href ng-click="exportToExcel()">Excel'e</a>
         </li>
         <li role="menuitem">
-          <a href>i-Mutabakat'a</a>
+          <a href ng-click="exportToApp()">i-Mutabakat'a</a>
         </li>
       </ul>
     </div>
   </div>
-
-  <div class="main-message" ng-show="!loading && (isEmpty || !loaded)">
-    <img src="./assets/images/no-data-96.png" class="animated bounceIn delayed" width="96" height="96">
-    <h3 class="text-success animated zoomIn delayed">Burası çok ıssız!</h3>
-    <h4 class="text-muted animated fadeIn" ng-class="{'hidden': isEmpty}">Firma, dönem ve form tipi seçin...</h4>
-    <h4 class="text-muted animated fadeIn" ng-class="{'hidden': !isEmpty}">Ne yazık ki uygun kayıt bulamadık.</h4>
-  </div>
-
-  <div class="main-message" ng-show="loaded && !(isEmpty || loading)">
-    <img src="./assets/images/data-96.png" class="animated bounceIn delayed" width="96" height="96">
-    <h3 class="text-warning animated zoomIn delayed">{{count | number: 0}} kayıt bulduk.</h3>
-    <h5 class="text-muted animated fadeIn">Kayıtları filtreleyebilir ve dışarıya aktarabilirsiniz</a>.</h5>
-  </div>
-
   <div class="main-spinner" ng-show="loading">
   </div>
 </section>

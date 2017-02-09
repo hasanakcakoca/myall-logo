@@ -1,0 +1,16 @@
+<div class="modal-body text-center">
+  <div class="modal-spinner" ng-class="{'hidden': !wait}"></div>
+  <img src="./assets/images/export-96.png" class="animated fadeInUp" width="96" height="96">
+  <h3 class="text-success animated zoomIn delayed" ng-class="{'hidden': wait || error}">Hazır mısınız?</h3>
+  <h3 class="text-success animated fadeIn" ng-class="{'hidden': !wait || error}">Aktarılıyor...</h3>
+  <h3 class="text-danger animated fadeIn" ng-class="{'hidden': !error}">Bir sorunumuz var!</h3>
+  <h5 class="text-muted animated fadeIn delayed-2x">
+    Aktaracağınız kayıtların, varsa aynı türdeki eski kayıtların üzerine yazılacağını ve bu işlemin geri alınamayacağını hatırlatırız.
+  </h5>
+  <form class="form" name="form" ng-submit="export()" novalidate>
+    <div class="btn-toolbar center">
+      <button type="submit" class="btn btn-success btn-lg" ng-disabled="wait">Aktar</button>
+      <button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Vazgeç</button>
+    </div>
+  </form>
+</div>

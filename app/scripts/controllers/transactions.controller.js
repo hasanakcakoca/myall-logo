@@ -188,6 +188,20 @@
       );
     };
 
+    $scope.exportToApp = function () {
+      let modalScope = $rootScope.$new();
+
+      angular.extend(modalScope, {data: $scope.data});
+
+      $uibModal.open({
+        scope: modalScope,
+        backdrop: 'static',
+        windowClass: 'modal-default',
+        controller: 'ExportController',
+        templateUrl: './templates/export.html'
+      });
+    };
+
     $scope.$watch('$root.connection', () => {
       $scope.loading = true;
 

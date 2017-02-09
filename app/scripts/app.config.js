@@ -1,5 +1,6 @@
 (function () {
-  function appConfig($stateProvider,
+  function appConfig($httpProvider,
+                     $stateProvider,
                      $urlRouterProvider,
                      $qProvider,
                      momentPickerProvider,
@@ -37,6 +38,7 @@
 
   angular.module('app')
     .config([
+      '$httpProvider',
       '$stateProvider',
       '$urlRouterProvider',
       '$qProvider',

@@ -15,7 +15,15 @@
           email,
           password
         })
-          .then(res => $rootScope.token = res.data.token);
+          .then(res =>
+            $rootScope.token = res.data.token
+          );
+      },
+      import: function (data) {
+        return $http.post(
+          `${API_BASE}/transactions/import`,
+          {data}
+        );
       }
     };
   }

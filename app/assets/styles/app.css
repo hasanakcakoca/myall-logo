@@ -49,7 +49,9 @@ main > hr {
 }
 
 main > .container[ui-view] {
+  height: 100%;
   margin-top: 30px;
+  position: relative;
 }
 
 .animated {
@@ -164,6 +166,10 @@ button span, a span {
   margin-top: 35px;
 }
 
+.form .btn-toolbar.center .btn {
+  float: none;
+}
+
 .ui-notification {
   width: 250px;
   border-radius: 4px;
@@ -171,12 +177,12 @@ button span, a span {
 }
 
 .main-message {
-  top: 52%;
+  top: 40%;
   left: 48%;
   height: 200px;
   position: absolute;
   text-align: center;
-  transform: translate(-48%, -52%);
+  transform: translate(-48%, -55%);
 }
 
 ul.export {

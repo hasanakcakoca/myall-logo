@@ -1,5 +1,6 @@
 .modal {
   text-align: center;
+  overflow: hidden !important;
 }
 
 .modal:before {
@@ -24,7 +25,7 @@
   transform: scale(1);
 }
 
-.modal.login .modal-dialog {
+.modal .modal-sm.modal-dialog {
   width: 450px;
 }
 
