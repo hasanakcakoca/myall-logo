@@ -1,4 +1,5 @@
 const path = require('path');
+const {version} = require('../../package.json');
 const createWindowsInstaller = require('electron-winstaller').createWindowsInstaller;
 
 getInstallerConfig()
@@ -19,7 +20,7 @@ function getInstallerConfig () {
     appDirectory,
     outputDirectory,
     noMsi: true,
-    setupExe: 'imlogo-setup.exe',
+    setupExe: `imlogo-${version}-setup.exe`,
     setupIcon: path.join(rootPath, 'resources', 'win', 'icon.ico')
   });
 }

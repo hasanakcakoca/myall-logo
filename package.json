@@ -16,6 +16,7 @@
     "start": "electron .",
     "build": "npm run build:win",
     "build:win": "electron-packager ./build --out=dist --asar --overwrite --win32 --icon=./resources/win/icon.ico --win32metadata.FileDescription=\"i-Mutabakat Resmi Logo Aktarım Aracı\" --win32metadata.ProductName=\"i-Mutabakat Logo\" --win32metadata.OriginalFilename=\"imlogo.exe\"",
+    "setup": "npm run setup:win",
     "setup:win": "node installers/win/installer.win.js"
   },
   "files": [
@@ -23,9 +24,12 @@
     "app/index.html"
   ],
   "keywords": [
-    "electron-app",
-    "electron"
+    "i-mutabakat",
+    "logo"
   ],
+  "updater": {
+    "url": "https://raw.githubusercontent.com/kemalersin/myall-logo/master/updates.json"
+  },
   "dependencies": {
     "alasql": "^0.3.6",
     "angular": "^1.6.1",
@@ -35,6 +39,7 @@
     "dotenv": "^4.0.0",
     "electron-context-menu": "^0.8.0",
     "electron-json-storage": "^3.0.0",
+    "electron-simple-updater": "^1.2.0",
     "jquery": "^3.1.1",
     "json2xls": "^0.1.2",
     "lodash": "^4.17.4",

@@ -160,7 +160,9 @@
           name: 'Çalışma Sayfası',
           extensions: ['xlsx']
         }]
-      }, filename =>
+      }, filename => {
+        if (!filename) return;
+
         alasql.promise(
           `
             SELECT
@@ -184,8 +186,8 @@
           [$scope.data]
         ).then(() =>
           Notification.success('Excel aktarımı tamamlandı.')
-        )
-      );
+        );
+      });
     };
 
     $scope.exportToApp = function () {

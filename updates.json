@@ -1,0 +1,8 @@
+{
+  "win32-x64-prod": {
+    "readme": "İlk Win32 sürümü.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-x64-prod-v0.1.2",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-x64-prod-v0.1.2/imlogo-0.1.2-setup.exe",
+    "version": "0.1.2"
+  }
+}

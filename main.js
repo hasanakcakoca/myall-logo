@@ -11,8 +11,11 @@ if (
 
 const env = process.env.NODE_ENV;
 const electron = require('electron');
+const updater = require('electron-simple-updater');
 
 const isDevelopment = env === 'development';
+
+updater.init();
 
 require('electron-context-menu')({
   labels: {
