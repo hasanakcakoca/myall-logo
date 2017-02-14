@@ -21,6 +21,7 @@ function getInstallerConfig () {
     outputDirectory,
     noMsi: true,
     setupExe: `imlogo-${version}-setup.exe`,
-    setupIcon: path.join(rootPath, 'resources', 'win', 'icon.ico')
+    setupIcon: path.join(rootPath, 'resources', 'win', 'icon.ico'),
+    iconUrl: 'https://raw.githubusercontent.com/kemalersin/myall-logo/master/resources/win/icon.ico'
   });
 }
