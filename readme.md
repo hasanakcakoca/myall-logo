@@ -1,27 +1,33 @@
-# im-logo
+# i-Mutabakat Logo
 
-> My swell app
+> i-Mutabakat resmi Logo aktarım aracı. Go Plus, Tiger Plus, Go 3 ve Tiger 3 ile tam uyumludur. Ticari sistemdeki mutabakat kayıtlarını tek tuşla Excel'e ya da doğrudan i-Mutabakat'a aktarmanızı sağlar.
 
 
 ## Dev
 
 ```
 $ npm install
+$ bower install
 ```
 
 ### Run
 
 ```
-$ npm start
+$ gulp serve
 ```
 
 ### Build
 
 ```
+$ gulp build
 $ npm run build
 ```
 
-Builds the app for macOS, Linux, and Windows, using [electron-packager](https://github.com/electron-userland/electron-packager).
+### Setup
+
+```
+$ npm run setup
+```
 
 
 ## License
