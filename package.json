@@ -15,7 +15,7 @@
     "test": "xo",
     "start": "electron .",
     "build": "npm run build:win",
-    "build:win": "electron-packager ./build --out=dist --asar --overwrite --win32 --icon=./resources/win/icon.ico --win32metadata.FileDescription=\"i-Mutabakat Resmi Logo Aktarım Aracı\" --win32metadata.ProductName=\"i-Mutabakat Logo\" --win32metadata.OriginalFilename=\"imlogo.exe\"",
+    "build:win": "electron-packager ./build --out=dist --asar --overwrite --win32 --arch=ia32 --icon=./resources/win/icon.ico --win32metadata.FileDescription=\"i-Mutabakat Resmi Logo Aktarım Aracı\" --win32metadata.ProductName=\"i-Mutabakat Logo\" --win32metadata.OriginalFilename=\"imlogo.exe\"",
     "setup": "npm run setup:win",
     "setup:win": "node installers/win/installer.win.js"
   },
