@@ -13,8 +13,8 @@ function getInstallerConfig () {
   console.log('Creating Windows installer...');
 
   const rootPath = path.join('./');
-  const appDirectory = path.join(rootPath, 'dist', 'imlogo-win32-x64');
-  const outputDirectory = path.join(rootPath, 'release', 'win32-x64');
+  const appDirectory = path.join(rootPath, 'dist', 'imlogo-win32-ia32');
+  const outputDirectory = path.join(rootPath, 'release', 'win32-ia32');
 
   return Promise.resolve({
     appDirectory,

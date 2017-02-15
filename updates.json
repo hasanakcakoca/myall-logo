@@ -1,8 +1,8 @@
 {
   "win32-x64-prod": {
-    "readme": "Eksik release dosyaları eklendi.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-x64-prod-v0.1.4",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-x64-prod-v0.1.4/imlogo-0.1.4-setup.exe",
-    "version": "0.1.4"
+    "readme": "Uygulama 32 bit hale getirildi.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-x64-prod-v0.1.5",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-x64-prod-v0.1.5/imlogo-0.1.5-setup.exe",
+    "version": "0.1.5"
   }
 }
