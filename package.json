@@ -1,7 +1,7 @@
 {
   "name": "imlogo",
   "productName": "imlogo",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "./main.js",
   "description": "i-Mutabakat Resmi Logo Aktarım Aracı",
   "license": "MIT",

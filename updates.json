@@ -1,8 +1,8 @@
 {
   "win32-ia32-prod": {
-    "readme": "Hata günlüğü etkinleştirildi.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.6",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.6/imlogo-0.1.6-setup.exe",
-    "version": "0.1.6"
+    "readme": "Çoklu e-posta ayırma sorgusu güncellendi.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.7",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.7/imlogo-0.1.7-setup.exe",
+    "version": "0.1.7"
   }
 }

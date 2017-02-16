@@ -19,7 +19,7 @@ SET @strSql = N'
       ) AS [Vergi No],
       SPECODE AS [Ozel Kod],
       INCHARGE AS [İlgili Kişi],
-      EMAILADDR AS [E-Posta],
+      REPLACE(EMAILADDR, '';'', '','') AS [E-Posta],
       LTRIM(TELCODES1 + '' '' + TELNRS1) AS [Telefon],
       LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
       CAST([Faturalar].[Adet] AS float) + CAST([Cari Fişleri].[Adet] AS float) AS Adet,
