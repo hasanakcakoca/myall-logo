@@ -22,6 +22,8 @@
         .catch(err => {
           $scope.error = true;
           $scope.wait = false;
+
+          log.error(err);
           Notification.error('Aktarım başarısız oldu.');
         });
     }

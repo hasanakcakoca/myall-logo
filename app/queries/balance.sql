@@ -44,8 +44,18 @@ SET @strSql = N'
       LG_' + @firmNr + '_CLCARD AS [Cariler]
       CROSS APPLY (
         SELECT
-          SUM(DEBIT) AS [Borç],
-          SUM(CREDIT) AS [Alacak]
+          SUM(
+            CASE
+              WHEN DEBIT < 0.001 THEN 0
+              ELSE DEBIT
+            END
+          ) AS [Borç],
+          SUM(
+            CASE
+              WHEN CREDIT < 0.001 THEN 0
+              ELSE CREDIT
+            END
+          ) AS [Alacak]
         FROM
           ' + @totTable + '
         WHERE

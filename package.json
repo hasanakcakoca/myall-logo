@@ -1,7 +1,7 @@
 {
   "name": "imlogo",
   "productName": "imlogo",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "./main.js",
   "description": "i-Mutabakat Resmi Logo Aktarım Aracı",
   "license": "MIT",
@@ -39,12 +39,12 @@
     "dotenv": "^4.0.0",
     "electron-context-menu": "^0.8.0",
     "electron-json-storage": "^3.0.0",
+    "electron-log": "^1.3.0",
     "electron-simple-updater": "^1.2.0",
     "jquery": "^3.1.1",
     "json2xls": "^0.1.2",
     "lodash": "^4.17.4",
     "mssql": "^3.3.0",
-    "ng-table": "^3.0.1",
     "simple-encryptor": "^1.1.0",
     "xlsx": "^0.8.2"
   },

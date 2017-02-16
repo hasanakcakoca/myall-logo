@@ -23,7 +23,7 @@
     };
 
     $rootScope.showConnectionSettings = function (cb) {
-      ConnectionService.settings.show()
+      return ConnectionService.settings.show()
         .then(modalInstance =>
           modalInstance.result
             .then(() => $rootScope.connect(cb))

@@ -1,8 +1,8 @@
 {
   "win32-ia32-prod": {
-    "readme": "Uygulama 32 bit hale getirildi.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.5",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.5/imlogo-0.1.5-setup.exe",
-    "version": "0.1.5"
+    "readme": "Hata günlüğü etkinleştirildi.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.6",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.6/imlogo-0.1.6-setup.exe",
+    "version": "0.1.6"
   }
 }

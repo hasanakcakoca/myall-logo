@@ -27,12 +27,14 @@
               $uibModalInstance.close()
             );
           })
-          .catch(err =>
+          .catch(err => {
+            log.error(err);
+
             $scope.$applyAsync(() => {
               $scope.wait = false;
               Notification.error('Veritabanına bağlanılamadı.');
             })
-          )
+          })
       );
     }
   }

@@ -2,6 +2,7 @@ process.once('loaded', () => {
   const fs = require('fs');
   const lodash = require('lodash');
   const Promise = require('bluebird');
+  const log = require('electron-log');
   const electron = require('electron');
   const storage = require('electron-json-storage');
   const encryptor = require('simple-encryptor')(process.env.PRIVATE_KEY);
@@ -12,6 +13,7 @@ process.once('loaded', () => {
 
   global.fs = fs;
   global.app = app;
+  global.log = log;
   global._ = lodash;
   global.process = process;
   global.remote = remote;

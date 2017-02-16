@@ -126,7 +126,7 @@
               });
             })
           ).catch(err => {
-            console.log(err);
+            log.error(err);
 
             $scope.loading = false;
             $scope.isEmpty = true;
@@ -186,7 +186,7 @@
           [$scope.data]
         ).then(() =>
           Notification.success('Excel aktarımı tamamlandı.')
-        );
+        ).catch(log.error)
       });
     };
 
@@ -210,6 +210,7 @@
       $rootScope.connection ?
         $scope.getFirms() :
         $rootScope.showConnectionSettings()
+          .catch(() => $scope.loading = false);
     });
 
     $scope.$watch('selectedDate', date => {

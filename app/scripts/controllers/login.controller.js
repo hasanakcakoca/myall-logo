@@ -21,12 +21,14 @@
           cookies.setCookie('email', $scope.email);
           $uibModalInstance.close();
         })
-        .catch(err =>
+        .catch(err => {
+          log.error(err);
+
           $scope.$applyAsync(() => {
             $scope.wait = false;
             Notification.error('Kullanıcı girişi yapılamadı.');
           })
-        );
+        });
     }
   }
 
