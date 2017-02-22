@@ -23,7 +23,7 @@ SET @strSql = N'
       LTRIM(TELCODES1 + '' '' + TELNRS1) AS [Telefon],
       LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
       CAST([Faturalar].[Adet] AS float) + CAST([Cari Fişleri].[Adet] AS float) AS Adet,
-			CAST([Faturalar].[Tutar] AS float) + CAST([Cari Fişleri].[Tutar] AS float) AS Tutar
+	  CAST(CAST([Faturalar].[Tutar] AS float) + CAST([Cari Fişleri].[Tutar] AS float) AS int) AS Tutar
     FROM
       LG_' + @firmNr + '_CLCARD AS [Cariler]
       CROSS APPLY (
