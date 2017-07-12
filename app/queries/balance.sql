@@ -35,6 +35,7 @@ SET @strSql = N'
       ISNULL(abs([Borç] - [Alacak]), 0) AS [Tutar],
       (
         CASE
+          WHEN (ISNULL(abs([Borç] - [Alacak]), 0) < 0.1) THEN ''''
           WHEN ([Borç] > [Alacak]) THEN ''Borçlu''
           WHEN ([Borç] < [Alacak]) THEN ''Alacaklı''
           ELSE ''''
@@ -46,13 +47,13 @@ SET @strSql = N'
         SELECT
           SUM(
             CASE
-              WHEN DEBIT < 0.001 THEN 0
+              WHEN DEBIT < 0.1 THEN 0
               ELSE DEBIT
             END
           ) AS [Borç],
           SUM(
             CASE
-              WHEN CREDIT < 0.001 THEN 0
+              WHEN CREDIT < 0.1 THEN 0
               ELSE CREDIT
             END
           ) AS [Alacak]

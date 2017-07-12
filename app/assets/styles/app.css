@@ -115,7 +115,7 @@ section.main button {
 }
 
 .dropdown-toggle .caret,
-.moment-picker .caret {
+[moment-picker] .caret {
   right: 14px;
   margin-top: 10px;
   position: absolute;
