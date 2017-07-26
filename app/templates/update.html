@@ -1,0 +1,17 @@
+<div class="modal-body text-center">
+  <div class="modal-spinner" ng-class="{'hidden': !wait}"></div>
+  <img src="./assets/images/in-love-96.png" class="animated flash" width="96" height="96" ng-class="{'hidden': error}">
+  <img src="./assets/images/error-96.png" class="animated tada" width="96" height="96" ng-class="{'hidden': !error}">  
+  <h3 class="text-success animated zoomIn delayed" ng-class="{'hidden': wait || error}">Bir şeyler yeni!</h3>
+  <h3 class="text-primary animated fadeIn infinite" ng-class="{'hidden': !wait || error}">Güncelleniyor...</h3>
+  <h3 class="text-danger animated fadeIn" ng-class="{'hidden': !error}">Bir sorunumuz var!</h3>
+  <h5 class="text-muted animated fadeIn delayed-2x" ng-class="{'hidden': wait || error}">{{readme}}</h5>
+  <h5 class="text-muted" ng-class="{'hidden': !wait}">Bu işlem biraz uzun sürebilir. Lütfen sabırlı olun.</h5>
+  <h5 class="text-muted" ng-class="{'hidden': !error}">Hata raporu için günlük dosyasına bakın.</h5>    
+  <form class="form" name="form" ng-submit="update(form)" novalidate>
+    <div class="btn-toolbar center">
+      <button type="submit" class="btn btn-success btn-lg" ng-disabled="wait">Güncelle</button>
+      <button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Vazgeç</button>
+    </div>
+  </form>
+</div>

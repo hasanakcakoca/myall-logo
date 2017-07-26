@@ -1,13 +1,13 @@
 'use strict';
 
-//const setupEvents = require('./installers/win/setup-events.win');
+const setupEvents = require('./installers/win/setup-events.win');
 
-// if (
-//   process.platform === 'win32' &&
-//   setupEvents.handleSquirrelEvent()
-// ) {
-//   return;
-// }
+if (
+  process.platform === 'win32' &&
+  setupEvents.handleSquirrelEvent()
+  ) {
+  return;
+}
 
 const env = process.env.NODE_ENV;
 const electron = require('electron');

@@ -1,7 +1,7 @@
 {
   "name": "imlogo",
   "productName": "imlogo",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "./main.js",
   "description": "i-Mutabakat Resmi Logo Aktarım Aracı",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "url": "i-mutabakat.com"
   },
   "engines": {
-    "node": "^7.7.2",
+    "node": "^6.5.0",
     "npm": "^3.10.8"
   },
   "scripts": {
@@ -32,6 +32,9 @@
     "logo"
   ],
   "updater": {
+    "build": "win32-ia32",
+    "checkUpdateOnStart": false,
+    "autoDownload": false,
     "url": "https://raw.githubusercontent.com/kemalersin/myall-logo/master/updates.json"
   },
   "dependencies": {
@@ -55,10 +58,10 @@
   "devDependencies": {
     "babel-preset-es2015": "^6.22.0",
     "devtron": "^1.1.0",
-    "electron": "^1.3.3",
+    "electron": "^1.6.11",
     "electron-connect": "^0.6.1",
     "electron-debug": "^1.0.0",
-    "electron-packager": "^8.7.0",
+    "electron-packager": "^8.5.2",
     "electron-winstaller": "^2.5.2",
     "fs-jetpack": "^0.10.5",
     "gulp": "^3.9.1",
