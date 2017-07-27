@@ -15,7 +15,8 @@
         'server',
         'database',
         'user',
-        'password'
+        'password',
+        'forAccounting'
       ]);
 
       $scope.wait = true;

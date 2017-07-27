@@ -1,17 +1,7 @@
-DECLARE @totView varchar(20)
-DECLARE @totTable varchar(20)
 DECLARE @strSql nvarchar(MAX)
-
-SET @totView = 'LV_' + @firmNr + '_' + @periodNr + '_CLTOTFIL'
-
-IF OBJECT_ID(@totView) IS NULL
-  SET @totTable = 'LG_' + @firmNr + '_' + @periodNr + '_CLTOTFIL'
-ELSE
-  SET @totTable = @totView
 
 SET @strSql = N'
   SELECT
-    0 AS [Adet],
     @prmMonth AS [Ay],
     @prmYear AS [Yıl],
     @prmFormType AS [Form Tipi],
@@ -32,41 +22,39 @@ SET @strSql = N'
       REPLACE(EMAILADDR, '';'', '','') AS [E-Posta],
       LTRIM(TELCODES1 + '' '' + TELNRS1) AS [Telefon],
       LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
-      ISNULL(abs([Borç] - [Alacak]), 0) AS [Tutar],
-      (
-        CASE
-          WHEN (ISNULL(ABS([Borç] - [Alacak]), 0) < 0.1) THEN ''''
-          WHEN ([Borç] > [Alacak]) THEN ''Borçlu''
-          WHEN ([Borç] < [Alacak]) THEN ''Alacaklı''
-          ELSE ''''
-        END
-      ) AS [Borç/Alacak]
+      CAST([Muhasebe Fişleri].[Adet] AS float) AS Adet,
+	    CAST(CAST([Muhasebe Fişleri].[Tutar] AS float) AS int) AS Tutar
     FROM
       LG_' + @firmNr + '_CLCARD AS [Cariler]
       CROSS APPLY (
         SELECT
-          SUM(
-            CASE
-              WHEN DEBIT < 0.1 THEN 0
-              ELSE DEBIT
-            END
-          ) AS [Borç],
-          SUM(
-            CASE
-              WHEN CREDIT < 0.1 THEN 0
-              ELSE CREDIT
-            END
-          ) AS [Alacak]
+          COUNT(LOGICALREF) AS [Adet],
+          ISNULL(SUM(DEBIT), 0) AS [Tutar]
         FROM
-          ' + @totTable + '
+          LG_' + @firmNr + '_' + @periodNr + '_EMFLINE
         WHERE
-          CARDREF = [Cariler].LOGICALREF AND
-          TOTTYP = 1 AND
-          MONTH_ <= @prmMonth AND
-          YEAR_ = @prmYear
-      ) AS [Cari Toplamlari]
+          SIGN = 0 AND
+          CANCELLED = 0 AND   
+          FORTAXDECL = 1 AND       
+          MONTH(DATE_) = @prmMonth AND
+          YEAR(DATE_) = @prmYear AND (
+            @prmInvSpeCode = '''' OR
+            SPECODE = @prmInvSpeCode
+          ) AND
+          ACCOUNTREF = (
+            SELECT
+              ACCOUNTREF
+            FROM
+              LG_' + @firmNr + '_CRDACREF
+            WHERE
+              TYP = 1 AND
+              TRCODE = 5 AND
+              CARDREF = Cariler.LOGICALREF
+          )
+      ) AS [Muhasebe Fişleri]
     WHERE
-      [Cariler].ACTIVE = 0 AND (
+      [Cariler].ACTIVE = 0 AND
+      [Muhasebe Fişleri].[Tutar] >= @prmLimit AND (
         @prmClSpeCode = '''' OR
         [Cariler].SPECODE = @prmClSpeCode
       ) AND (
@@ -79,9 +67,6 @@ SET @strSql = N'
   WHERE
     t.[Ad] <> '''' AND
     t.[Vergi No] <> '''' AND (
-      @prmOnlyWithBalance = 0 OR
-      t.[Tutar] <> 0
-    ) AND (
       t.[Kod] LIKE ''%' + @search + '%'' OR
       t.[Ad] LIKE ''%' + @search + '%'' OR
       t.[Vergi No] LIKE ''%' + @search + '%''
@@ -95,16 +80,18 @@ EXECUTE sp_executesql
   N'
     @prmMonth int,
     @prmYear int,
-    @prmFormType varchar(6),
+    @prmLimit float,
     @prmCurrency varchar(3),
     @prmClSpeCode varchar(10),
-    @prmOnlyWithBalance bit,
-    @prmOnlyWithEmail bit
+    @prmInvSpeCode varchar(10),
+    @prmOnlyWithEmail bit,
+    @prmFormType varchar(7)
   ',
   @prmMonth = @month,
   @prmYear = @year,
+  @prmLimit = @limit,
   @prmCurrency = @currency,
   @prmClSpeCode = @clSpeCode,
-  @prmOnlyWithBalance = @onlyWithBalance,
+  @prmInvSpeCode = @invSpeCode,
   @prmOnlyWithEmail = @onlyWithEmail,
-  @prmFormType = 'Bakiye'
+  @prmFormType = 'Form BS'

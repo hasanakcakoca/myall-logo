@@ -44,7 +44,7 @@
         },
         read: function () {
           return storage.getAsync('connection')
-            .then(config => encryptor.decrypt(config));
+            .then(config => $rootScope.config = encryptor.decrypt(config));
         },
         write: function (config) {
           return storage.setAsync('connection', encryptor.encrypt(config));

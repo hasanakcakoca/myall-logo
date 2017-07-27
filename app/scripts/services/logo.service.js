@@ -1,20 +1,21 @@
 (function () {
   'use strict';
 
-  function LogoService(ConnectionService) {
+  function LogoService($rootScope, ConnectionService) {
     const cs = ConnectionService;
 
     return {
       util: {
-        getQuery: function (file) {
-          return fs.readFileSync(`${__dirname}/queries/${file}.sql`, 'utf8');
+        getQuery: function (file, forAccounting = true) {
+          let acc = forAccounting && $rootScope.config.forAccounting ? '-acc' : '';
+          return fs.readFileSync(`${__dirname}/queries/${file}${acc}.sql`, 'utf8');
         }
       },
       getFirms: function () {
-        return cs.query(this.util.getQuery('firms'));
+        return cs.query(this.util.getQuery('firms', false));
       },
       getFirmInfo: function (firmNr) {
-        return cs.query(this.util.getQuery('firm-info'), {firmNr});
+        return cs.query(this.util.getQuery('firm-info', false), {firmNr});
       },
       getBalance: function (params) {
         return cs.query(this.util.getQuery('balance'), params);
@@ -30,6 +31,7 @@
 
   angular.module('app')
     .factory('LogoService', [
+      '$rootScope',
       'ConnectionService',
       LogoService
     ]);

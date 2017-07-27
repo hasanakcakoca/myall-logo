@@ -2,10 +2,10 @@ DECLARE @totView varchar(20)
 DECLARE @totTable varchar(20)
 DECLARE @strSql nvarchar(MAX)
 
-SET @totView = 'LV_' + @firmNr + '_' + @periodNr + '_CLTOTFIL'
+SET @totView = 'LV_' + @firmNr + '_' + @periodNr + '_EMUHTOT'
 
 IF OBJECT_ID(@totView) IS NULL
-  SET @totTable = 'LG_' + @firmNr + '_' + @periodNr + '_CLTOTFIL'
+  SET @totTable = 'LG_' + @firmNr + '_' + @periodNr + '_EMUHTOT'
 ELSE
   SET @totTable = @totView
 
@@ -60,10 +60,19 @@ SET @strSql = N'
         FROM
           ' + @totTable + '
         WHERE
-          CARDREF = [Cariler].LOGICALREF AND
-          TOTTYP = 1 AND
+          TOTTYPE = 1 AND
           MONTH_ <= @prmMonth AND
-          YEAR_ = @prmYear
+          YEAR_ = @prmYear AND
+          ACCOUNTREF = (
+            SELECT
+              ACCOUNTREF
+            FROM
+              LG_' + @firmNr + '_CRDACREF
+            WHERE
+              TYP = 1 AND
+              TRCODE = 5 AND
+              CARDREF = Cariler.LOGICALREF
+          )
       ) AS [Cari Toplamlari]
     WHERE
       [Cariler].ACTIVE = 0 AND (
