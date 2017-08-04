@@ -1,8 +1,8 @@
 {
   "win32-ia32-prod": {
-    "readme": "Toplamlar artık genel muhasebeden de alınabiliyor.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.11",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.11/imlogo-0.1.11-setup.exe",
-    "version": "0.1.11"
+    "readme": "Cariler artık vergi numaralarına göre gruplandırılıyor.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.12",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.12/imlogo-0.1.12-setup.exe",
+    "version": "0.1.12"
   }
 }

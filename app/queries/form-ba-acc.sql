@@ -9,70 +9,96 @@ SET @strSql = N'
     *
   FROM (
     SELECT
-      CODE AS [Kod],
       DEFINITION_ AS [Ad],
-      (
-        CASE ISPERSCOMP
-          WHEN 1 THEN TCKNO
-          ELSE TAXNR
-        END
-      ) AS [Vergi No],
-      SPECODE AS [Ozel Kod],
       INCHARGE AS [İlgili Kişi],
       REPLACE(EMAILADDR, '';'', '','') AS [E-Posta],
       LTRIM(TELCODES1 + '' '' + TELNRS1) AS [Telefon],
       LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
-      CAST([Muhasebe Fişleri].[Adet] AS float) AS Adet,
-	    CAST(CAST([Muhasebe Fişleri].[Tutar] AS float) AS int) AS Tutar
-    FROM
-      LG_' + @firmNr + '_CLCARD AS [Cariler]
-      CROSS APPLY (
+      [Vergi No],
+      [Adet],
+      [Tutar]
+    FROM (    
         SELECT
-          COUNT(LOGICALREF) AS [Adet],
-          ISNULL(SUM(CREDIT), 0) AS [Tutar]
-        FROM
-          LG_' + @firmNr + '_' + @periodNr + '_EMFLINE
-        WHERE
-          SIGN = 1 AND
-          CANCELLED = 0 AND   
-          FORTAXDECL = 1 AND       
-          MONTH(DATE_) = @prmMonth AND
-          YEAR(DATE_) = @prmYear AND (
-            @prmInvSpeCode = '''' OR
-            SPECODE = @prmInvSpeCode
-          ) AND
-          ACCOUNTREF = (
+          [Vergi No],
+          SUM([Adet]) AS [Adet],
+          SUM([Tutar]) AS [Tutar]
+        FROM (
+          SELECT
+            (
+              CASE ISPERSCOMP
+                WHEN 1 THEN TCKNO
+                ELSE TAXNR
+              END
+            ) AS [Vergi No],
+            CAST([Muhasebe Fişleri].[Adet] AS float) AS Adet,
+            CAST(CAST([Muhasebe Fişleri].[Tutar] AS float) AS int) AS Tutar
+          FROM
+            LG_' + @firmNr + '_CLCARD AS [Cariler]
+            CROSS APPLY (
+              SELECT
+                COUNT(LOGICALREF) AS [Adet],
+                ISNULL(SUM(CREDIT), 0) AS [Tutar]
+              FROM
+                LG_' + @firmNr + '_' + @periodNr + '_EMFLINE
+              WHERE
+                SIGN = 1 AND
+                CANCELLED = 0 AND   
+                FORTAXDECL = 1 AND       
+                MONTH(DATE_) = @prmMonth AND
+                YEAR(DATE_) = @prmYear AND (
+                  @prmInvSpeCode = '''' OR
+                  SPECODE = @prmInvSpeCode
+                ) AND
+                ACCOUNTREF = (
+                  SELECT
+                    ACCOUNTREF
+                  FROM
+                    LG_' + @firmNr + '_CRDACREF
+                  WHERE
+                    TYP = 1 AND
+                    TRCODE = 5 AND
+                    CARDREF = Cariler.LOGICALREF
+                )
+            ) AS [Muhasebe Fişleri]
+          WHERE
+            ACTIVE = 0 AND (
+              CODE LIKE ''%' + @search + '%'' OR
+              DEFINITION_ LIKE ''%' + @search + '%'' OR (
+			          ISPERSCOMP = 1 AND
+				        TCKNO LIKE ''%' + @search + '%''
+			        ) OR (
+			          ISPERSCOMP = 0 AND
+				        TAXNR LIKE ''%' + @search + '%''
+			        )
+            ) AND (
+              @prmClSpeCode = '''' OR
+              SPECODE = @prmClSpeCode
+            )
+        ) AS tIn
+        GROUP BY
+          [Vergi No]
+        HAVING
+          [Vergi No] <> '''' AND
+          SUM([Tutar]) >= @prmLimit    
+      ) AS tOut
+        INNER JOIN
+          LG_' + @firmNr + '_CLCARD AS [Cariler] ON [Cariler].LOGICALREF = (
             SELECT
-              ACCOUNTREF
+              TOP 1 LOGICALREF
             FROM
-              LG_' + @firmNr + '_CRDACREF
+              LG_' + @firmNr + '_CLCARD
             WHERE
-              TYP = 1 AND
-              TRCODE = 5 AND
-              CARDREF = Cariler.LOGICALREF
-          )
-      ) AS [Muhasebe Fişleri]
-    WHERE
-      [Cariler].ACTIVE = 0 AND
-      [Muhasebe Fişleri].[Tutar] >= @prmLimit AND (
-        @prmClSpeCode = '''' OR
-        [Cariler].SPECODE = @prmClSpeCode
-      ) AND (
-        @prmOnlyWithEmail = 0 OR (
-          EMAILADDR <> '''' AND
-          EMAILADDR IS NOT NULL
-        )
-      )
+              (
+                @prmOnlyWithEmail = 0 OR (
+                  EMAILADDR <> '''' AND
+                  EMAILADDR IS NOT NULL
+                )
+              ) AND (
+                (ISPERSCOMP = 1 AND TCKNO = tOut.[Vergi No]) OR
+                (ISPERSCOMP = 0 AND TAXNR = tOut.[Vergi No])
+              )
+          ) 
   ) AS t
-  WHERE
-    t.[Ad] <> '''' AND
-    t.[Vergi No] <> '''' AND (
-      t.[Kod] LIKE ''%' + @search + '%'' OR
-      t.[Ad] LIKE ''%' + @search + '%'' OR
-      t.[Vergi No] LIKE ''%' + @search + '%''
-    )
-  ORDER BY
-    t.[Ad]
 '
 
 EXECUTE sp_executesql
@@ -95,4 +121,3 @@ EXECUTE sp_executesql
   @prmInvSpeCode = @invSpeCode,
   @prmOnlyWithEmail = @onlyWithEmail,
   @prmFormType = 'Form BA'
-
