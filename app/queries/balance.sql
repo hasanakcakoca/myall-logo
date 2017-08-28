@@ -19,7 +19,7 @@ SET @strSql = N'
     *
   FROM (
     SELECT
-      CODE AS [Kod],
+      CODE AS [Alt Şirket Kodu],
       DEFINITION_ AS [Ad],
       (
         CASE ISPERSCOMP
@@ -82,7 +82,7 @@ SET @strSql = N'
       @prmOnlyWithBalance = 0 OR
       t.[Tutar] <> 0
     ) AND (
-      t.[Kod] LIKE ''%' + @search + '%'' OR
+      t.[Alt Şirket Kodu] LIKE ''%' + @search + '%'' OR
       t.[Ad] LIKE ''%' + @search + '%'' OR
       t.[Vergi No] LIKE ''%' + @search + '%''
     )

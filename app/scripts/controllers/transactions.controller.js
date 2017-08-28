@@ -168,6 +168,7 @@
             SELECT
               [Vergi No],
               [Ad],
+              [Alt Şirket Kodu],
               [Form Tipi],
               [Ay],
               [Yıl],

@@ -6,6 +6,7 @@ SET @strSql = N'
     @prmYear AS [Yıl],
     @prmFormType AS [Form Tipi],
     @prmCurrency AS [Para Birimi],
+    '''' AS [Alt Şirket Kodu],
     *
   FROM (
     SELECT
