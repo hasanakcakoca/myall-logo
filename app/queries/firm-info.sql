@@ -28,6 +28,7 @@ FROM
           WHEN 17 THEN 'GBP'
           WHEN 18 THEN 'SAR'
           WHEN 20 THEN 'EUR'
+          WHEN 25 THEN 'CNY'          
           WHEN 30 THEN 'IQD'
           WHEN 31 THEN 'IRR'
           ELSE 'TRY'
