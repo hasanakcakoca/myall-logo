@@ -87,6 +87,7 @@
           const periodNr = ("00" + firmInfo.periodNr).slice(-2);
 
           const currency = firmInfo.currency;
+          const currencyNr = firmInfo.currencyNr === 160 ? 0 : firmInfo.currencyNr;
 
           const year = config.date.year;
           const month = config.date.month;
@@ -94,7 +95,7 @@
           const formType = config.form.type;
 
           const params = _.merge(config.options, {
-            firmNr, periodNr, currency,
+            firmNr, periodNr, currency, currencyNr,            
             formType, month, year, limit
           });
 

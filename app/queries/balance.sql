@@ -15,7 +15,6 @@ SET @strSql = N'
     @prmMonth AS [Ay],
     @prmYear AS [Yıl],
     @prmFormType AS [Form Tipi],
-    @prmCurrency AS [Para Birimi],
     *
   FROM (
     SELECT
@@ -40,7 +39,22 @@ SET @strSql = N'
           WHEN ([Borç] < [Alacak]) THEN ''Alacaklı''
           ELSE ''''
         END
-      ) AS [Borç/Alacak]
+      ) AS [Borç/Alacak],
+      (
+        CASE CCURRENCY
+          WHEN 1 THEN ''USD''
+          WHEN 3 THEN ''AUD''
+          WHEN 13 THEN ''JPY''
+          WHEN 14 THEN ''CAD''
+          WHEN 15 THEN ''KWD''
+          WHEN 17 THEN ''GBP''
+          WHEN 18 THEN ''SAR''
+          WHEN 20 THEN ''EUR''
+          WHEN 30 THEN ''IQD''
+          WHEN 31 THEN ''IRR''
+          ELSE ''TRY''
+        END
+      ) AS [Para Birimi]      
     FROM
       LG_' + @firmNr + '_CLCARD AS [Cariler]
       CROSS APPLY (
@@ -61,9 +75,16 @@ SET @strSql = N'
           ' + @totTable + '
         WHERE
           CARDREF = [Cariler].LOGICALREF AND
-          TOTTYP = 1 AND
           MONTH_ <= @prmMonth AND
-          YEAR_ = @prmYear
+          YEAR_ = @prmYear AND (
+            (
+              @prmCurrencyNr = [Cariler].CCURRENCY AND
+              TOTTYP = 1
+            ) OR (
+              @prmCurrencyNr <> [Cariler].CCURRENCY AND
+              TOTTYP = 2              
+            )
+          )
       ) AS [Cari Toplamlari]
     WHERE
       [Cariler].ACTIVE = 0 AND (
@@ -97,6 +118,7 @@ EXECUTE sp_executesql
     @prmYear int,
     @prmFormType varchar(6),
     @prmCurrency varchar(3),
+    @prmCurrencyNr int,    
     @prmClSpeCode varchar(10),
     @prmOnlyWithBalance bit,
     @prmOnlyWithEmail bit
@@ -104,6 +126,7 @@ EXECUTE sp_executesql
   @prmMonth = @month,
   @prmYear = @year,
   @prmCurrency = @currency,
+  @prmCurrencyNr = @currencyNr,
   @prmClSpeCode = @clSpeCode,
   @prmOnlyWithBalance = @onlyWithBalance,
   @prmOnlyWithEmail = @onlyWithEmail,

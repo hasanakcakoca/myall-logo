@@ -17,18 +17,19 @@ FROM
   CROSS APPLY
   (
     SELECT
+      LOCALCTYP AS currencyNr,
       (
         CASE LOCALCTYP
           WHEN 1 THEN 'USD'
-          --WHEN 3 THEN 'AUD'
-          --WHEN 13 THEN 'JPY'
-          --WHEN 14 THEN 'CAD'
-          --WHEN 15 THEN 'KWD'
-          --WHEN 17 THEN 'GBP'
-          --WHEN 18 THEN 'SAR'
+          WHEN 3 THEN 'AUD'
+          WHEN 13 THEN 'JPY'
+          WHEN 14 THEN 'CAD'
+          WHEN 15 THEN 'KWD'
+          WHEN 17 THEN 'GBP'
+          WHEN 18 THEN 'SAR'
           WHEN 20 THEN 'EUR'
-          --WHEN 30 THEN 'IQD'
-          --WHEN 31 THEN 'IRR'
+          WHEN 30 THEN 'IQD'
+          WHEN 31 THEN 'IRR'
           ELSE 'TRY'
         END
       ) AS currency
