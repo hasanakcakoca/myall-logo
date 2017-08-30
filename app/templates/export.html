@@ -3,7 +3,9 @@
   <img src="./assets/images/export-96.png" class="animated fadeInUp" width="96" height="96" ng-class="{'hidden': error}">
   <img src="./assets/images/error-96.png" class="animated tada" width="96" height="96" ng-class="{'hidden': !error}">    
   <h3 class="text-success animated zoomIn delayed" ng-class="{'hidden': wait || error}">Hazır mısınız?</h3>
-  <h3 class="text-success animated fadeIn" ng-class="{'hidden': !wait || error}">Aktarılıyor...</h3>
+  <h3 class="text-success animated fadeIn" ng-class="{'hidden': !wait || error}">
+    Aktarılıyor<span ng-class="{'hidden': groupCount === 1}"> ({{step}}/{{groupCount}})</span>...
+  </h3>
   <h3 class="text-danger animated fadeIn" ng-class="{'hidden': !error}">Bir sorunumuz var!</h3>
   <h5 class="text-muted animated fadeIn delayed-2x">
     Aktaracağınız kayıtların, varsa aynı türdeki eski kayıtların üzerine yazılacağını ve bu işlemin geri alınamayacağını hatırlatırız.

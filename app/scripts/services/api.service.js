@@ -19,10 +19,10 @@
             $rootScope.token = res.data.token
           );
       },
-      import: function (data) {
+      import: function (data, preventRefresh) {
         return $http.post(
           `${API_BASE}/transactions/import`,
-          {data}
+          {data, preventRefresh}
         );
       }
     };

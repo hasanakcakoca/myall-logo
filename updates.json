@@ -1,8 +1,8 @@
 {
   "win32-ia32-prod": {
-    "readme": "Bakiyeler artık dövizli olarak da aktarılabiliyor.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.14",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.14/imlogo-0.1.14-setup.exe",
-    "version": "0.1.14"
+    "readme": "Kayıtlar artık gruplandırılarak aktarılıyor.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.15",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.15/imlogo-0.1.15-setup.exe",
+    "version": "0.1.15"
   }
 }
