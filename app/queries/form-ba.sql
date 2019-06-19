@@ -43,7 +43,11 @@ SET @strSql = N'
                 LG_' + @firmNr + '_' + @periodNr + '_INVOICE
               WHERE
                 CANCELLED = 0 AND
-                TRCODE IN (1, 2, 3, 4) AND
+                (
+				          TRCODE IN (1, 2, 3, 4) OR
+				          (TRCODE = 13 AND DECPRDIFF=0) OR
+				          (TRCODE = 14 AND DECPRDIFF=1)
+				        ) AND
                 CLIENTREF = [Cariler].LOGICALREF AND
                 MONTH(DATE_) = @prmMonth AND
                 YEAR(DATE_) = @prmYear AND (

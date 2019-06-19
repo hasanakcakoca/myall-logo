@@ -1,7 +1,7 @@
 {
   "name": "imlogo",
   "productName": "imlogo",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "main": "./main.js",
   "description": "i-Mutabakat Resmi Logo Aktarım Aracı",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "author": {
     "name": "Kemal Ersin Yılmaz",
     "email": "mail@kemalersin.com",
-    "url": "i-mutabakat.com"
+    "url": "https://www.i-mutabakat.com"
   },
   "engines": {
     "node": "^6.5.0",
@@ -58,11 +58,11 @@
   "devDependencies": {
     "babel-preset-es2015": "^6.22.0",
     "devtron": "^1.1.0",
-    "electron": "^1.7.6",
+    "electron": "^2.0.0",
     "electron-connect": "^0.6.2",
-    "electron-debug": "^1.4.0",
-    "electron-packager": "^8.7.2",
-    "electron-winstaller": "^2.5.2",
+    "electron-debug": "^2.0.0",
+    "electron-packager": "^10.0.0",
+    "electron-winstaller": "^3.0.0",
     "fs-jetpack": "^0.10.5",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
