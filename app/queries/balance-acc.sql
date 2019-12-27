@@ -113,6 +113,9 @@ SET @strSql = N'
       @prmOnlyWithBalance = 0 OR
       t.[Tutar] <> 0
     ) AND (
+      @prmUseMinimumTotal = 0 OR
+      t.[Tutar] >= @prmMinimumTotal
+    ) AND (
       t.[Alt Şirket Kodu] LIKE ''%' + @search + '%'' OR
       t.[Ad] LIKE ''%' + @search + '%'' OR
       t.[Vergi No] LIKE ''%' + @search + '%''

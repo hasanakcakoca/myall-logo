@@ -100,6 +100,11 @@ SET @strSql = N'
               )
           ) 
   ) AS t
+  WHERE
+    @prmUseMinimumTotal = 0 OR
+    t.[Tutar] >= @prmMinimumTotal
+  ORDER BY
+    t.[Ad]    
 '
 
 EXECUTE sp_executesql
@@ -112,7 +117,9 @@ EXECUTE sp_executesql
     @prmClSpeCode varchar(10),
     @prmInvSpeCode varchar(10),
     @prmOnlyWithEmail bit,
-    @prmFormType varchar(7)
+    @prmFormType varchar(7),
+    @prmUseMinimumTotal bit,
+    @prmMinimumTotal float
   ',
   @prmMonth = @month,
   @prmYear = @year,
@@ -121,4 +128,6 @@ EXECUTE sp_executesql
   @prmClSpeCode = @clSpeCode,
   @prmInvSpeCode = @invSpeCode,
   @prmOnlyWithEmail = @onlyWithEmail,
+  @prmUseMinimumTotal = @useMinimumTotal,
+  @prmMinimumTotal = @minimumTotal,  
   @prmFormType = 'Form BA'

@@ -4,6 +4,7 @@
     'ui.router',
     'ngAnimate',
     'ui-notification',
+    'ui.utils.masks',
     'moment-picker'
   ]);
 

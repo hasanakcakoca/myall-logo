@@ -4,37 +4,89 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label>Arama</label>
-          <input type="text" name="search" class="form-control" placeholder="Cari hesap kodu, açıklaması ya da vergi numarası"  max-length="50" ng-model="search" autofocus/>
+          <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Cari hesap kodu, açıklaması ya da vergi numarası"
+            max-length="50"
+            ng-model="search"
+            autofocus
+          />
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label>Özel Kod</label>
-          <input type="text" name="client-specode" class="form-control" max-length="10" placeholder="Cari hesap özel kodu" ng-model="clSpeCode" autofocus/>
+          <input
+            type="text"
+            name="client-specode"
+            class="form-control"
+            max-length="10"
+            placeholder="Cari hesap özel kodu"
+            ng-model="clSpeCode"
+          />
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label>&nbsp;</label>
-          <input type="text" name="invoice-specode" class="form-control" max-length="10" placeholder="Fatura özel kodu" ng-model="invSpeCode" autofocus/>
+          <input
+            type="text"
+            name="invoice-specode"
+            class="form-control"
+            max-length="10"
+            placeholder="Fatura özel kodu"
+            ng-model="invSpeCode"
+          />
+        </div>
+      </div>
+      <div class="col-sm-12">&nbsp;</div>
+      <div class="col-sm-12">
+        <div class="checkbox mt-0">
+          <label>
+            <input type="checkbox" ng-model="onlyWithBalance" /> Sadece bakiyesi
+            olanlar
+          </label>
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="checkbox">
+        <div class="checkbox mt-0">
           <label>
-            <input type="checkbox" ng-model="onlyWithBalance"> Sadece bakiyesi olanlar
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="onlyWithEmail"> Sadece e-posta adresi olanlar
+            <input type="checkbox" ng-model="onlyWithEmail" /> Sadece e-posta
+            adresi olanlar
           </label>
         </div>
       </div>
+      <div class="col-sm-6">
+        <div class="checkbox mt-0">
+          <label>
+            <input type="checkbox" ng-model="useMinimumTotal" ng-change="setMinimumTotal()" /> En düşük tutarı şu olanlar:
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <input
+        type="text"
+        name="invoice-specode"
+        class="form-control"
+        max-length="10"
+        placeholder="En düşük tutar"
+        ng-model="minimumTotal"
+        ng-disabled="!useMinimumTotal",
+        ui-number-mask="0"
+      />
+      </div>      
     </div>
     <div class="btn-toolbar">
       <button type="submit" class="btn btn-primary btn-lg">Tamam</button>
-      <button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Vazgeç</button>
+      <button
+        type="button"
+        class="btn btn-default btn-lg"
+        ng-click="$dismiss()"
+      >
+        Vazgeç
+      </button>
     </div>
   </form>
 </div>

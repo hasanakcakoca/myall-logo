@@ -11,10 +11,18 @@
             'clSpeCode',
             'invSpeCode',
             'onlyWithBalance',
-            'onlyWithEmail'
+            'onlyWithEmail',
+            'useMinimumTotal',
+            'minimumTotal'
           ]
         )
       );
+    }
+
+    $scope.setMinimumTotal = function () {
+      if (!$scope.useMinimumTotal) {
+        $scope.minimumTotal = 0;
+      }
     }
   }
 

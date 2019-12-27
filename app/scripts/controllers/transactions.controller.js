@@ -22,7 +22,9 @@
         clSpeCode: '',
         invSpeCode: '',
         onlyWithBalance: true,
-        onlyWithEmail: true
+        onlyWithEmail: true,
+        useMinimumTotal: false,
+        minimumTotal: 0
       }
     };
 

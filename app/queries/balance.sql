@@ -104,6 +104,9 @@ SET @strSql = N'
       @prmOnlyWithBalance = 0 OR
       t.[Tutar] <> 0
     ) AND (
+      @prmUseMinimumTotal = 0 OR
+      t.[Tutar] >= @prmMinimumTotal
+    ) AND (
       t.[Alt Şirket Kodu] LIKE ''%' + @search + '%'' OR
       t.[Ad] LIKE ''%' + @search + '%'' OR
       t.[Vergi No] LIKE ''%' + @search + '%''
@@ -122,7 +125,9 @@ EXECUTE sp_executesql
     @prmCurrencyNr int,    
     @prmClSpeCode varchar(10),
     @prmOnlyWithBalance bit,
-    @prmOnlyWithEmail bit
+    @prmOnlyWithEmail bit,
+    @prmUseMinimumTotal bit,
+    @prmMinimumTotal float
   ',
   @prmMonth = @month,
   @prmYear = @year,
@@ -131,4 +136,6 @@ EXECUTE sp_executesql
   @prmClSpeCode = @clSpeCode,
   @prmOnlyWithBalance = @onlyWithBalance,
   @prmOnlyWithEmail = @onlyWithEmail,
+  @prmUseMinimumTotal = @useMinimumTotal,
+  @prmMinimumTotal = @minimumTotal,
   @prmFormType = 'Bakiye'

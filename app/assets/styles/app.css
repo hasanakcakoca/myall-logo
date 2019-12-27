@@ -11,6 +11,14 @@ body {
   outline: none !important;
 }
 
+.mt-0 {
+  margin-top: 0;
+}
+
+.form-control {
+  height: inherit;
+}
+
 :not(input):not(textarea),
 :not(input):not(textarea)::after,
 :not(input):not(textarea)::before {
