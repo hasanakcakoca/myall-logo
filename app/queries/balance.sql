@@ -76,8 +76,7 @@ SET @strSql = N'
           ' + @totTable + '
         WHERE
           CARDREF = [Cariler].LOGICALREF AND
-          MONTH_ <= @prmMonth AND
-          YEAR_ = @prmYear AND (
+          MONTH_ <= @prmMonth AND (
             (
               @prmCurrencyNr = [Cariler].CCURRENCY AND
               TOTTYP = 1
