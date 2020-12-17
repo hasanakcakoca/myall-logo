@@ -1,8 +1,8 @@
 {
   "win32-ia32-prod": {
-    "readme": "Mali dönem bağımsız çalışma özelliği eklendi.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.18",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.18/imlogo-0.1.18-setup.exe",
-    "version": "0.1.18"
+    "readme": "Mali dönem bağımsız çalışma özelliği güncellendi.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.19",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.19/imlogo-0.1.19-setup.exe",
+    "version": "0.1.19"
   }
 }

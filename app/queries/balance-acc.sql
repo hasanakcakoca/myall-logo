@@ -75,7 +75,10 @@ SET @strSql = N'
         FROM
           ' + @totTable + '
         WHERE
-          MONTH_ <= @prmMonth AND
+          (
+            (MONTH_ <= @prmMonth AND YEAR_ = @prmYear) OR
+            (YEAR_ < @prmYear)
+          ) AND
           ACCOUNTREF = (
             SELECT
               ACCOUNTREF
