@@ -81,10 +81,7 @@ SET @strSql = N'
           FROM
             LG_' + @firmNr + '_' + @periodNr + '_CLFLINE
           WHERE
-            (
-              @prmUseTrCurrency = 1 AND
-              @prmCurrencyNr <> [Cariler].CCURRENCY
-            ) AND
+            @prmUseTrCurrency = 1 AND
 
             CANCELLED = 0 AND
             TRCURR = @prmTrCurrencyNr AND
@@ -113,10 +110,7 @@ SET @strSql = N'
           FROM
             ' + @totTable + '
           WHERE
-            (
-              @prmUseTrCurrency = 0 OR
-              @prmCurrencyNr = [Cariler].CCURRENCY
-            ) AND
+            @prmUseTrCurrency = 0 AND
 
             CARDREF = [Cariler].LOGICALREF AND
             (
@@ -124,8 +118,13 @@ SET @strSql = N'
               (YEAR_ < @prmYear)
             ) AND
             (
-              @prmCurrencyNr = [Cariler].CCURRENCY AND
-              TOTTYP = 1
+              (
+                @prmCurrencyNr = [Cariler].CCURRENCY AND
+                TOTTYP = 1
+              ) OR (
+                @prmCurrencyNr <> [Cariler].CCURRENCY AND
+                TOTTYP = 2              
+              )
             )
         ) AS [Cari Bakiye]
       ) AS [Cari Toplamlari]

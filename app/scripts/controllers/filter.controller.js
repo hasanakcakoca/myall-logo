@@ -45,8 +45,8 @@
 
     $scope.setTrCurrency = function () {
       if (!$scope.useTrCurrency) {
-        $scope.trCurrency = null;
         $scope.trCurrencyNr = 0;
+        $scope.trCurrency = _.find($scope.currencies, { type: 0 });
       }
     }
 
