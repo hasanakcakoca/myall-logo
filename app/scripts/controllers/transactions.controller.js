@@ -14,7 +14,7 @@
       {type: 1, name: 'Bakiye'},
       {type: 2, name: 'Form BA'},
       {type: 3, name: 'Form BS'}
-    ];
+    ];    
 
     $scope.getDefaultOptions = function () {
       return {
@@ -24,7 +24,9 @@
         onlyWithBalance: true,
         onlyWithEmail: true,
         useMinimumTotal: false,
-        minimumTotal: 0
+        minimumTotal: 0,
+        useTrCurrency: false,
+        trCurrencyNr: 0
       }
     };
 
@@ -151,7 +153,7 @@
         templateUrl: './templates/filter.html'
       });
 
-      modalInstance.result.then(options =>
+      modalInstance.result.then(options => 
         $scope.options = options
       );
     };
@@ -178,6 +180,7 @@
               [Adet],
               [Tutar],
               [Para Birimi],
+              [Tutar (TRY)],              
               [Borç/Alacak],
               [E-Posta],
               [Telefon],

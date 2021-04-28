@@ -5,7 +5,7 @@ const setupEvents = require('./installers/win/setup-events.win');
 if (
   process.platform === 'win32' &&
   setupEvents.handleSquirrelEvent()
-  ) {
+) {
   return;
 }
 
@@ -39,15 +39,15 @@ if (isDevelopment) {
   require('electron-debug')();
 }
 
-require('dotenv').config({path: `${__dirname}/.env`});
+require('dotenv').config({ path: `${__dirname}/.env` });
 
 function onClosed() {
-	mainWindow = null;
+  mainWindow = null;
 }
 
 function createMainWindow() {
-	const options = {
-		width: 850,
+  const options = {
+    width: 850,
     height: 650,
     show: false,
     frame: false,
@@ -57,37 +57,37 @@ function createMainWindow() {
       devTools: isDevelopment,
       preload: `${appDir}/scripts/preload.js`
     }
-	};
+  };
 
-	const win = new electron.BrowserWindow(options);
+  const win = new electron.BrowserWindow(options);
 
   win.setMenu(null);
-	win.loadURL(`file://${appDir}/index.html`);
-	win.on('closed', onClosed);
+  win.loadURL(`file://${appDir}/index.html`);
+  win.on('closed', onClosed);
 
-	return win;
+  return win;
 }
 
 app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
 
 app.on('activate', () => {
-	if (!mainWindow) {
-		mainWindow = createMainWindow();
-	}
+  if (!mainWindow) {
+    mainWindow = createMainWindow();
+  }
 });
 
 app.on('ready', () => {
-	mainWindow = createMainWindow();
+  mainWindow = createMainWindow();
 
-	mainWindow.show();
+  mainWindow.show();
 
-	if (isDevelopment) {
+  if (isDevelopment) {
     require('electron-connect').client.create(mainWindow);
-	}
+  };
 });
 
 ipcMain.on('close', () => {

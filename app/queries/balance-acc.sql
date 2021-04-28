@@ -55,7 +55,8 @@ SET @strSql = N'
           WHEN 31 THEN ''IRR''
           ELSE ''TRY''
         END
-      ) AS [Para Birimi]      
+      ) AS [Para Birimi],
+      ISNULL(abs([Borç] - [Alacak]), 0) AS [Tutar (TRY)]    
     FROM
       LG_' + @firmNr + '_CLCARD AS [Cariler]
       CROSS APPLY (

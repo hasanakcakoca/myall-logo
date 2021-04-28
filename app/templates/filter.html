@@ -41,6 +41,55 @@
           />
         </div>
       </div>
+    </div>
+    <div class="col-sm-12">&nbsp;</div>
+    <div class="row" ng-show="formType === 1">
+      <div class="col-sm-6">
+        <div class="checkbox mt-0 pt-4">
+          <label>
+            <input type="checkbox" ng-model="useTrCurrency"
+            ng-change="setTrCurrency()" />
+            İşlem dövizi şu olanlar:
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div
+          class="btn-group full-width"
+          uib-dropdown
+          keyboard-nav
+        >
+          <button
+            id="btn-form-type"
+            type="button"
+            class="btn btn-default full-width"                     
+            ng-disabled="!useTrCurrency"
+            uib-dropdown-toggle
+          >
+            <span class="pull-left" ng-show="!trCurrency.short">
+              Para birimi
+            </span>
+            <span class="pull-left" ng-show="!!trCurrency.short">
+              {{trCurrency.name}} ({{trCurrency.short}})
+            </span>
+            <span class="caret"></span>
+          </button>
+          <ul
+            class="dropdown-menu full-width"
+            uib-dropdown-menu
+            role="menu"
+            aria-labelledby="btn-currency-type"
+          >
+            <li role="menuitem" ng-repeat="currency in currencies">
+              <a href ng-click="selectTrCurrency(currency)"
+                >{{currency.name}} ({{currency.short}})</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-12">&nbsp;</div>
       <div class="col-sm-12">
         <div class="checkbox mt-0">
@@ -61,22 +110,28 @@
       <div class="col-sm-6">
         <div class="checkbox mt-0">
           <label>
-            <input type="checkbox" ng-model="useMinimumTotal" ng-change="setMinimumTotal()" /> En düşük tutarı şu olanlar:
+            <input
+              type="checkbox"
+              ng-model="useMinimumTotal"
+              ng-change="setMinimumTotal()"
+            />
+            En düşük tutarı şu olanlar:
           </label>
         </div>
       </div>
       <div class="col-sm-6">
         <input
-        type="text"
-        name="invoice-specode"
-        class="form-control"
-        max-length="10"
-        placeholder="En düşük tutar"
-        ng-model="minimumTotal"
-        ng-disabled="!useMinimumTotal",
-        ui-number-mask="0"
-      />
-      </div>      
+          type="text"
+          name="invoice-specode"
+          class="form-control"
+          max-length="10"
+          placeholder="En düşük tutar"
+          ng-model="minimumTotal"
+          ng-disabled="!useMinimumTotal"
+          ,
+          ui-number-mask="0"
+        />
+      </div>
     </div>
     <div class="btn-toolbar">
       <button type="submit" class="btn btn-primary btn-lg">Tamam</button>

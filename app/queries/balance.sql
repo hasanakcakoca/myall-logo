@@ -55,40 +55,79 @@ SET @strSql = N'
           WHEN 31 THEN ''IRR''
           ELSE ''TRY''
         END
-      ) AS [Para Birimi]      
+      ) AS [Para Birimi],
+      [Tutar (TRY)]     
     FROM
       LG_' + @firmNr + '_CLCARD AS [Cariler]
       CROSS APPLY (
         SELECT
-          SUM(
-            CASE
-              WHEN DEBIT < 0.1 THEN 0
-              ELSE DEBIT
-            END
-          ) AS [Borç],
-          SUM(
-            CASE
-              WHEN CREDIT < 0.1 THEN 0
-              ELSE CREDIT
-            END
-          ) AS [Alacak]
+          *
         FROM
-          ' + @totTable + '
-        WHERE
-          CARDREF = [Cariler].LOGICALREF AND
-          (
-            (MONTH_ <= @prmMonth AND YEAR_ = @prmYear) OR
-            (YEAR_ < @prmYear)
-          ) AND
-          (
+        (
+          SELECT            
+            SUM(
+              CASE
+                WHEN SIGN = 0 THEN TRNET
+                ELSE 0
+              END
+            ) AS [Borç],
+            SUM(
+              CASE
+                WHEN SIGN = 1 THEN TRNET
+                ELSE 0
+              END              
+            ) AS [Alacak],
+            (SUM((1 - SIGN) * AMOUNT) - SUM(SIGN * AMOUNT)) AS [Tutar (TRY)]
+          FROM
+            LG_' + @firmNr + '_' + @periodNr + '_CLFLINE
+          WHERE
+            (
+              @prmUseTrCurrency = 1 AND
+              @prmCurrencyNr <> [Cariler].CCURRENCY
+            ) AND
+
+            CANCELLED = 0 AND
+            TRCURR = @prmTrCurrencyNr AND
+            CLIENTREF = [Cariler].LOGICALREF AND            
+            (
+              (MONTH_ <= @prmMonth AND YEAR_ = @prmYear) OR
+              (YEAR_ < @prmYear)
+            )
+
+          UNION ALL
+
+          SELECT
+            SUM(
+              CASE
+                WHEN DEBIT < 0.1 THEN 0
+                ELSE DEBIT
+              END
+            ) AS [Borç],
+            SUM(
+              CASE
+                WHEN CREDIT < 0.1 THEN 0
+                ELSE CREDIT
+              END
+            ) AS [Alacak],
+            ABS(SUM(DEBIT) - SUM(CREDIT)) AS [Tutar (TRY)]
+          FROM
+            ' + @totTable + '
+          WHERE
+            (
+              @prmUseTrCurrency = 0 OR
+              @prmCurrencyNr = [Cariler].CCURRENCY
+            ) AND
+
+            CARDREF = [Cariler].LOGICALREF AND
+            (
+              (MONTH_ <= @prmMonth AND YEAR_ = @prmYear) OR
+              (YEAR_ < @prmYear)
+            ) AND
             (
               @prmCurrencyNr = [Cariler].CCURRENCY AND
               TOTTYP = 1
-            ) OR (
-              @prmCurrencyNr <> [Cariler].CCURRENCY AND
-              TOTTYP = 2              
             )
-          )
+        ) AS [Cari Bakiye]
       ) AS [Cari Toplamlari]
     WHERE
       [Cariler].ACTIVE = 0 AND (
@@ -98,6 +137,10 @@ SET @strSql = N'
         @prmOnlyWithEmail = 0 OR (
           EMAILADDR <> '''' AND
           EMAILADDR IS NOT NULL
+        )
+      ) AND (
+        @prmUseTrCurrency = 0 OR (
+          [Cariler].CCURRENCY = @prmTrCurrencyNr
         )
       )
   ) AS t
@@ -130,7 +173,9 @@ EXECUTE sp_executesql
     @prmOnlyWithBalance bit,
     @prmOnlyWithEmail bit,
     @prmUseMinimumTotal bit,
-    @prmMinimumTotal float
+    @prmMinimumTotal float,
+    @prmUseTrCurrency bit,
+    @prmTrCurrencyNr int
   ',
   @prmMonth = @month,
   @prmYear = @year,
@@ -141,4 +186,6 @@ EXECUTE sp_executesql
   @prmOnlyWithEmail = @onlyWithEmail,
   @prmUseMinimumTotal = @useMinimumTotal,
   @prmMinimumTotal = @minimumTotal,
+  @prmUseTrCurrency = @useTrCurrency,
+  @prmTrCurrencyNr = @trCurrencyNr,
   @prmFormType = 'Bakiye'

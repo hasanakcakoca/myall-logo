@@ -15,6 +15,10 @@ body {
   margin-top: 0;
 }
 
+.pt-4 {
+  padding-top: 4px;
+}
+
 .form-control {
   height: inherit;
 }
@@ -79,11 +83,16 @@ main > .container[ui-view] {
   -webkit-app-region: drag;
 }
 
+body.modal-open .draggable, .dragarea {
+  -webkit-app-region: no-drag;
+}
+
 .dragarea {
   top: 0;
   left: 0;
   position: absolute;
   height: 50px;
+  z-index: 1;
   width: calc(100% - 40px);
 }
 
@@ -131,6 +140,10 @@ section.main button {
 
 button span, a span {
   cursor: pointer;
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+  background-color: #f0f3f4;
 }
 
 #btn-firms {

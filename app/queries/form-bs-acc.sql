@@ -17,7 +17,8 @@ SET @strSql = N'
       LTRIM(FAXCODE + '' '' + FAXNR) AS [Faks],
       [Vergi No],
       [Adet],
-      [Tutar]
+      [Tutar],
+      [Tutar] AS [Tutar (TRY)]
     FROM (    
         SELECT
           [Vergi No],
