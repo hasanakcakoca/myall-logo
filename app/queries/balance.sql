@@ -77,7 +77,7 @@ SET @strSql = N'
                 ELSE 0
               END              
             ) AS [Alacak],
-            (SUM((1 - SIGN) * AMOUNT) - SUM(SIGN * AMOUNT)) AS [Tutar (TRY)]
+            ABS(SUM((1 - SIGN) * AMOUNT) - SUM(SIGN * AMOUNT)) AS [Tutar (TRY)]
           FROM
             LG_' + @firmNr + '_' + @periodNr + '_CLFLINE
           WHERE

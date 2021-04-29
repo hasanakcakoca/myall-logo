@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   overflow: hidden;
   background: rgba(0, 0, 0, 0);
 }
@@ -7,7 +8,8 @@ body {
   font-size: 15px;
 }
 
-*:active, *:focus {
+*:active,
+*:focus {
   outline: none !important;
 }
 
@@ -51,16 +53,16 @@ a.settings {
   cursor: pointer;
 }
 
-main > button.close {
+main>button.close {
   margin-right: 5px;
 }
 
-main > hr {
+main>hr {
   margin-top: 10px;
   margin-bottom: 40px;
 }
 
-main > .container[ui-view] {
+main>.container[ui-view] {
   height: 100%;
   margin-top: 30px;
   position: relative;
@@ -79,21 +81,20 @@ main > .container[ui-view] {
   animation-delay: .8s;
 }
 
-.draggable, .dragarea {
-  -webkit-app-region: drag;
-}
-
-body.modal-open .draggable, .dragarea {
-  -webkit-app-region: no-drag;
-}
-
 .dragarea {
   top: 0;
   left: 0;
   position: absolute;
   height: 50px;
-  z-index: 1;
   width: calc(100% - 40px);
+}
+
+body:not(.modal-open) .draggable {
+  -webkit-app-region: drag !important;
+}
+
+body.modal-open .draggable {
+  -webkit-app-region: no-drag;
 }
 
 p.lead {
@@ -101,7 +102,10 @@ p.lead {
   font-weight: 400 !important;
 }
 
-a, input, textarea, button {
+a,
+input,
+textarea,
+button {
   -webkit-app-region: no-drag;
 }
 
@@ -138,11 +142,14 @@ section.main button {
   position: absolute;
 }
 
-button span, a span {
+button span,
+a span {
   cursor: pointer;
 }
 
-.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
   background-color: #f0f3f4;
 }
 
@@ -150,13 +157,13 @@ button span, a span {
   width: 225px;
 }
 
-#btn-firms ~ ul {
+#btn-firms~ul {
   max-height: 300px;
   overflow-y: auto;
 }
 
 #btn-firms .firm,
-#btn-firms ~ ul li a {
+#btn-firms~ul li a {
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -168,7 +175,7 @@ button span, a span {
   width: 175px;
 }
 
-#btn-firms ~ ul li a {
+#btn-firms~ul li a {
   width: 100%;
 }
 

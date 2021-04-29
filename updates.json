@@ -1,8 +1,8 @@
 {
   "win32-ia32-prod": {
-    "readme": "Artık bakiye mutabakatlarında işlem dövizleri de dikkate alınıyor.",
-    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.21",
-    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.21/imlogo-0.1.21-setup.exe",
-    "version": "0.1.21"
+    "readme": "İşlem dövizli bakiyelerin aktarımı iyileştirildi.",
+    "update": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.22",
+    "install": "https://github.com/kemalersin/myall-logo/releases/download/win32-ia32-prod-v0.1.22/imlogo-0.1.22-setup.exe",
+    "version": "0.1.22"
   }
 }
