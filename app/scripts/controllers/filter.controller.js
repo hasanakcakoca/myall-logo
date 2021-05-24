@@ -12,9 +12,7 @@
       { type: 13, short: 'JPY', name: 'Japon Yeni' },
       { type: 25, short: 'CNY', name: 'Çin Yüeni' },      
       { type: 15, short: 'KWD', name: 'Kuveyt Dinarı' },
-      { type: 18, short: 'SAR', name: 'S. Arabistan Riyali' },
-      { type: 30, short: 'IQD', name: 'Irak Dinarı' },
-      { type: 31, short: 'IRR', name: 'İran Riyali' }
+      { type: 30, short: 'IQD', name: 'Irak Dinarı' }
     ];
 
     $scope.filter = function () {
